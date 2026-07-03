@@ -60,6 +60,10 @@ export function UrlInput() {
     return null;
   }
 
+  if (isBusy) {
+    return null;
+  }
+
   return (
     <div className="space-y-5">
       <div className="space-y-3">

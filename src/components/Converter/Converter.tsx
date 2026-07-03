@@ -57,11 +57,13 @@ export function Converter() {
               <InputModeSelector />
             </div>
 
-            <div className="pixel-card pixel-card-corners noise-overlay p-6">
-              {inputMode === "project" && <ProjectInput />}
-              {inputMode === "url" && <UrlInput />}
-              {inputMode === "file" && <DropZone />}
-            </div>
+            {!isBusy && (
+              <div className="pixel-card pixel-card-corners noise-overlay p-6">
+                {inputMode === "project" && <ProjectInput />}
+                {inputMode === "url" && <UrlInput />}
+                {inputMode === "file" && <DropZone />}
+              </div>
+            )}
 
             {showOptions && inputMode === "file" && (
               <div className="pixel-card pixel-card-corners noise-overlay p-6 animate-drop-bounce">
