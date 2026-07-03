@@ -18,7 +18,7 @@ export function Converter() {
   const isBusy =
     status === "parsing" || status === "downloading" || status === "packaging";
   const isDone = status === "done";
-  const showInputPanel = !isBusy && !isDone;
+  const showInputPanel = !isBusy && !isDone && !selectedFile;
   const showOptions = !isDone && !isBusy;
   const showConvertBtn = selectedFile && status !== "done" && !isBusy;
 

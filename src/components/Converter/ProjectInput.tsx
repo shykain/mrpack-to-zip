@@ -56,11 +56,7 @@ export function ProjectInput() {
     }
   };
 
-  if (selectedFile) {
-    return null;
-  }
-
-  if (isBusy) {
+  if (selectedFile || isBusy || status === "done") {
     return null;
   }
 
