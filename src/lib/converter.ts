@@ -125,38 +125,53 @@ export async function convertToZip(
       currentFile: "Downloading mod files...",
     });
 
-    for (const modFile of modFiles) {
+    // Pre-compute target paths
+    const tasks = modFiles.map((modFile) => {
       let targetPath = modFile.path;
       if (options.normalizeFilenames) {
         targetPath = normalizeFilename(modFile.path);
       }
       if (!options.keepOriginalStructure) {
-        // Flatten to just the filename in its top-level folder
         const parts = modFile.path.split("/");
         const topFolder = parts[0] || "mods";
         const fileName = parts[parts.length - 1] || "unknown";
         targetPath = `${topFolder}/${fileName}`;
       }
+      return { modFile, targetPath };
+    });
 
-      const blob = await downloadModFile(modFile.downloads);
-      if (blob) {
-        outputZip.file(targetPath, blob);
-      } else {
-        skipped++;
+    // Concurrent download with limited parallelism
+    const CONCURRENCY = 6;
+    let index = 0;
+
+    async function worker() {
+      while (index < tasks.length) {
+        const current = index++;
+        const { modFile, targetPath } = tasks[current];
+        const blob = await downloadModFile(modFile.downloads);
+        if (blob) {
+          outputZip.file(targetPath, blob);
+        } else {
+          skipped++;
+        }
+        processed++;
+        const pct = 15 + Math.round((processed / totalMods) * 70);
+        onProgress({
+          status: "downloading",
+          progress: pct,
+          currentFile: modFile.path.split("/").pop() || modFile.path,
+          totalFiles: totalMods,
+          processedFiles: processed,
+          skippedFiles: skipped,
+          modCount: totalMods,
+        });
       }
-
-      processed++;
-      const pct = 15 + Math.round((processed / totalMods) * 70);
-      onProgress({
-        status: "downloading",
-        progress: pct,
-        currentFile: modFile.path.split("/").pop() || modFile.path,
-        totalFiles: totalMods,
-        processedFiles: processed,
-        skippedFiles: skipped,
-        modCount: totalMods,
-      });
     }
+
+    const workers = Array.from({ length: Math.min(CONCURRENCY, tasks.length) }, () =>
+      worker(),
+    );
+    await Promise.all(workers);
   }
 
   // Copy overrides folder (config files, resource packs, etc.)
