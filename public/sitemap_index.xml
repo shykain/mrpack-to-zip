@@ -1,21 +1,238 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>https://mrpacktozip.club/</loc>
     <lastmod>2026-07-04</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://mrpacktozip.club/" />
+    <xhtml:link rel="alternate" hreflang="de" href="https://mrpacktozip.club/de/" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://mrpacktozip.club/fr/" />
+    <xhtml:link rel="alternate" hreflang="ru" href="https://mrpacktozip.club/ru/" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://mrpacktozip.club/es/" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://mrpacktozip.club/zh/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://mrpacktozip.club/" />
+  </url>
+  <url>
+    <loc>https://mrpacktozip.club/de/</loc>
+    <lastmod>2026-07-04</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://mrpacktozip.club/" />
+    <xhtml:link rel="alternate" hreflang="de" href="https://mrpacktozip.club/de/" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://mrpacktozip.club/fr/" />
+    <xhtml:link rel="alternate" hreflang="ru" href="https://mrpacktozip.club/ru/" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://mrpacktozip.club/es/" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://mrpacktozip.club/zh/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://mrpacktozip.club/" />
+  </url>
+  <url>
+    <loc>https://mrpacktozip.club/fr/</loc>
+    <lastmod>2026-07-04</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://mrpacktozip.club/" />
+    <xhtml:link rel="alternate" hreflang="de" href="https://mrpacktozip.club/de/" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://mrpacktozip.club/fr/" />
+    <xhtml:link rel="alternate" hreflang="ru" href="https://mrpacktozip.club/ru/" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://mrpacktozip.club/es/" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://mrpacktozip.club/zh/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://mrpacktozip.club/" />
+  </url>
+  <url>
+    <loc>https://mrpacktozip.club/ru/</loc>
+    <lastmod>2026-07-04</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://mrpacktozip.club/" />
+    <xhtml:link rel="alternate" hreflang="de" href="https://mrpacktozip.club/de/" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://mrpacktozip.club/fr/" />
+    <xhtml:link rel="alternate" hreflang="ru" href="https://mrpacktozip.club/ru/" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://mrpacktozip.club/es/" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://mrpacktozip.club/zh/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://mrpacktozip.club/" />
+  </url>
+  <url>
+    <loc>https://mrpacktozip.club/es/</loc>
+    <lastmod>2026-07-04</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://mrpacktozip.club/" />
+    <xhtml:link rel="alternate" hreflang="de" href="https://mrpacktozip.club/de/" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://mrpacktozip.club/fr/" />
+    <xhtml:link rel="alternate" hreflang="ru" href="https://mrpacktozip.club/ru/" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://mrpacktozip.club/es/" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://mrpacktozip.club/zh/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://mrpacktozip.club/" />
+  </url>
+  <url>
+    <loc>https://mrpacktozip.club/zh/</loc>
+    <lastmod>2026-07-04</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://mrpacktozip.club/" />
+    <xhtml:link rel="alternate" hreflang="de" href="https://mrpacktozip.club/de/" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://mrpacktozip.club/fr/" />
+    <xhtml:link rel="alternate" hreflang="ru" href="https://mrpacktozip.club/ru/" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://mrpacktozip.club/es/" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://mrpacktozip.club/zh/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://mrpacktozip.club/" />
   </url>
   <url>
     <loc>https://mrpacktozip.club/privacy</loc>
     <lastmod>2026-07-04</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://mrpacktozip.club/privacy" />
+    <xhtml:link rel="alternate" hreflang="de" href="https://mrpacktozip.club/de/privacy" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://mrpacktozip.club/fr/privacy" />
+    <xhtml:link rel="alternate" hreflang="ru" href="https://mrpacktozip.club/ru/privacy" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://mrpacktozip.club/es/privacy" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://mrpacktozip.club/zh/privacy" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://mrpacktozip.club/privacy" />
+  </url>
+  <url>
+    <loc>https://mrpacktozip.club/de/privacy</loc>
+    <lastmod>2026-07-04</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://mrpacktozip.club/privacy" />
+    <xhtml:link rel="alternate" hreflang="de" href="https://mrpacktozip.club/de/privacy" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://mrpacktozip.club/fr/privacy" />
+    <xhtml:link rel="alternate" hreflang="ru" href="https://mrpacktozip.club/ru/privacy" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://mrpacktozip.club/es/privacy" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://mrpacktozip.club/zh/privacy" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://mrpacktozip.club/privacy" />
+  </url>
+  <url>
+    <loc>https://mrpacktozip.club/fr/privacy</loc>
+    <lastmod>2026-07-04</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://mrpacktozip.club/privacy" />
+    <xhtml:link rel="alternate" hreflang="de" href="https://mrpacktozip.club/de/privacy" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://mrpacktozip.club/fr/privacy" />
+    <xhtml:link rel="alternate" hreflang="ru" href="https://mrpacktozip.club/ru/privacy" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://mrpacktozip.club/es/privacy" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://mrpacktozip.club/zh/privacy" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://mrpacktozip.club/privacy" />
+  </url>
+  <url>
+    <loc>https://mrpacktozip.club/ru/privacy</loc>
+    <lastmod>2026-07-04</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://mrpacktozip.club/privacy" />
+    <xhtml:link rel="alternate" hreflang="de" href="https://mrpacktozip.club/de/privacy" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://mrpacktozip.club/fr/privacy" />
+    <xhtml:link rel="alternate" hreflang="ru" href="https://mrpacktozip.club/ru/privacy" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://mrpacktozip.club/es/privacy" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://mrpacktozip.club/zh/privacy" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://mrpacktozip.club/privacy" />
+  </url>
+  <url>
+    <loc>https://mrpacktozip.club/es/privacy</loc>
+    <lastmod>2026-07-04</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://mrpacktozip.club/privacy" />
+    <xhtml:link rel="alternate" hreflang="de" href="https://mrpacktozip.club/de/privacy" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://mrpacktozip.club/fr/privacy" />
+    <xhtml:link rel="alternate" hreflang="ru" href="https://mrpacktozip.club/ru/privacy" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://mrpacktozip.club/es/privacy" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://mrpacktozip.club/zh/privacy" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://mrpacktozip.club/privacy" />
+  </url>
+  <url>
+    <loc>https://mrpacktozip.club/zh/privacy</loc>
+    <lastmod>2026-07-04</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://mrpacktozip.club/privacy" />
+    <xhtml:link rel="alternate" hreflang="de" href="https://mrpacktozip.club/de/privacy" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://mrpacktozip.club/fr/privacy" />
+    <xhtml:link rel="alternate" hreflang="ru" href="https://mrpacktozip.club/ru/privacy" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://mrpacktozip.club/es/privacy" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://mrpacktozip.club/zh/privacy" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://mrpacktozip.club/privacy" />
   </url>
   <url>
     <loc>https://mrpacktozip.club/contact</loc>
     <lastmod>2026-07-04</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://mrpacktozip.club/contact" />
+    <xhtml:link rel="alternate" hreflang="de" href="https://mrpacktozip.club/de/contact" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://mrpacktozip.club/fr/contact" />
+    <xhtml:link rel="alternate" hreflang="ru" href="https://mrpacktozip.club/ru/contact" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://mrpacktozip.club/es/contact" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://mrpacktozip.club/zh/contact" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://mrpacktozip.club/contact" />
+  </url>
+  <url>
+    <loc>https://mrpacktozip.club/de/contact</loc>
+    <lastmod>2026-07-04</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://mrpacktozip.club/contact" />
+    <xhtml:link rel="alternate" hreflang="de" href="https://mrpacktozip.club/de/contact" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://mrpacktozip.club/fr/contact" />
+    <xhtml:link rel="alternate" hreflang="ru" href="https://mrpacktozip.club/ru/contact" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://mrpacktozip.club/es/contact" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://mrpacktozip.club/zh/contact" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://mrpacktozip.club/contact" />
+  </url>
+  <url>
+    <loc>https://mrpacktozip.club/fr/contact</loc>
+    <lastmod>2026-07-04</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://mrpacktozip.club/contact" />
+    <xhtml:link rel="alternate" hreflang="de" href="https://mrpacktozip.club/de/contact" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://mrpacktozip.club/fr/contact" />
+    <xhtml:link rel="alternate" hreflang="ru" href="https://mrpacktozip.club/ru/contact" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://mrpacktozip.club/es/contact" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://mrpacktozip.club/zh/contact" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://mrpacktozip.club/contact" />
+  </url>
+  <url>
+    <loc>https://mrpacktozip.club/ru/contact</loc>
+    <lastmod>2026-07-04</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://mrpacktozip.club/contact" />
+    <xhtml:link rel="alternate" hreflang="de" href="https://mrpacktozip.club/de/contact" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://mrpacktozip.club/fr/contact" />
+    <xhtml:link rel="alternate" hreflang="ru" href="https://mrpacktozip.club/ru/contact" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://mrpacktozip.club/es/contact" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://mrpacktozip.club/zh/contact" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://mrpacktozip.club/contact" />
+  </url>
+  <url>
+    <loc>https://mrpacktozip.club/es/contact</loc>
+    <lastmod>2026-07-04</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://mrpacktozip.club/contact" />
+    <xhtml:link rel="alternate" hreflang="de" href="https://mrpacktozip.club/de/contact" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://mrpacktozip.club/fr/contact" />
+    <xhtml:link rel="alternate" hreflang="ru" href="https://mrpacktozip.club/ru/contact" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://mrpacktozip.club/es/contact" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://mrpacktozip.club/zh/contact" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://mrpacktozip.club/contact" />
+  </url>
+  <url>
+    <loc>https://mrpacktozip.club/zh/contact</loc>
+    <lastmod>2026-07-04</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://mrpacktozip.club/contact" />
+    <xhtml:link rel="alternate" hreflang="de" href="https://mrpacktozip.club/de/contact" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://mrpacktozip.club/fr/contact" />
+    <xhtml:link rel="alternate" hreflang="ru" href="https://mrpacktozip.club/ru/contact" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://mrpacktozip.club/es/contact" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://mrpacktozip.club/zh/contact" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://mrpacktozip.club/contact" />
   </url>
 </urlset>

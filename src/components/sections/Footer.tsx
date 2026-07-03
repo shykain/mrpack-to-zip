@@ -1,9 +1,12 @@
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { Boxes, Heart } from "lucide-react";
 import { useTranslation } from "react-i18next";
+import { getLangFromPath, buildLocalizedPath } from "@/i18n/utils";
 
 export function Footer() {
   const { t } = useTranslation();
+  const location = useLocation();
+  const currentLang = getLangFromPath(location.pathname);
 
   const FOOTER_LINKS = [
     {
@@ -25,8 +28,8 @@ export function Footer() {
     {
       title: t("footerLinks.legal.title"),
       links: [
-        { label: t("footerLinks.legal.privacy"), href: "/privacy", internal: true },
-        { label: t("footerLinks.legal.contact"), href: "/contact", internal: true },
+        { label: t("footerLinks.legal.privacy"), href: buildLocalizedPath("/privacy", currentLang), internal: true },
+        { label: t("footerLinks.legal.contact"), href: buildLocalizedPath("/contact", currentLang), internal: true },
       ],
     },
     {

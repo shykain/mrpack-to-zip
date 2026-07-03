@@ -1,33 +1,37 @@
 import { useEffect, useState, useRef } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { Boxes, Menu, X, Globe, ChevronDown } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { LANGUAGES } from "@/i18n";
 import type { LanguageCode } from "@/i18n";
+import { getLangFromPath, buildLocalizedPath, stripLangFromPath } from "@/i18n/utils";
 
 export function Navbar() {
   const { t, i18n } = useTranslation();
   const location = useLocation();
+  const navigate = useNavigate();
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const [langOpen, setLangOpen] = useState(false);
   const langRef = useRef<HTMLDivElement>(null);
 
-  const isHome = location.pathname === "/";
+  const currentLang = getLangFromPath(location.pathname);
+  const cleanPath = stripLangFromPath(location.pathname);
+  const isHome = cleanPath === "/";
 
   const NAV_LINKS = [
-    { href: isHome ? "#converter" : "/#converter", label: t("nav.converter") },
-    { href: isHome ? "#about" : "/#about", label: t("nav.about") },
-    { href: isHome ? "#how-it-works" : "/#how-it-works", label: t("nav.howItWorks") },
-    { href: isHome ? "#guide" : "/#guide", label: t("nav.guide") },
-    { href: isHome ? "#faq" : "/#faq", label: t("nav.faq") },
-    { href: isHome ? "#launchers" : "/#launchers", label: t("nav.launchers") },
+    { href: isHome ? "#converter" : buildLocalizedPath("/#converter", currentLang), label: t("nav.converter") },
+    { href: isHome ? "#about" : buildLocalizedPath("/#about", currentLang), label: t("nav.about") },
+    { href: isHome ? "#how-it-works" : buildLocalizedPath("/#how-it-works", currentLang), label: t("nav.howItWorks") },
+    { href: isHome ? "#guide" : buildLocalizedPath("/#guide", currentLang), label: t("nav.guide") },
+    { href: isHome ? "#faq" : buildLocalizedPath("/#faq", currentLang), label: t("nav.faq") },
+    { href: isHome ? "#launchers" : buildLocalizedPath("/#launchers", currentLang), label: t("nav.launchers") },
   ];
 
   const PAGE_LINKS = [
-    { to: "/privacy", label: t("nav.privacy") },
-    { to: "/contact", label: t("nav.contact") },
+    { to: buildLocalizedPath("/privacy", currentLang), label: t("nav.privacy") },
+    { to: buildLocalizedPath("/contact", currentLang), label: t("nav.contact") },
   ];
 
   useEffect(() => {
@@ -50,11 +54,13 @@ export function Navbar() {
   const closeMenu = () => setMenuOpen(false);
 
   const handleLanguageChange = (code: LanguageCode) => {
-    i18n.changeLanguage(code);
+    const newPath = buildLocalizedPath(cleanPath, code);
     setLangOpen(false);
+    setMenuOpen(false);
+    navigate(newPath + location.hash);
   };
 
-  const currentLang = LANGUAGES.find((l) => l.code === i18n.language) || LANGUAGES[0];
+  const currentLangInfo = LANGUAGES.find((l) => l.code === currentLang) || LANGUAGES[0];
 
   return (
     <header
@@ -67,7 +73,7 @@ export function Navbar() {
     >
       <nav className="container flex items-center justify-between">
         <Link
-          to="/"
+          to={buildLocalizedPath("/", currentLang)}
           className="flex items-center gap-2.5 group"
           onClick={closeMenu}
         >
@@ -102,7 +108,7 @@ export function Navbar() {
               to={link.to}
               className={cn(
                 "px-3 py-2 rounded-md text-sm font-medium transition-colors",
-                location.pathname === link.to
+                cleanPath === stripLangFromPath(link.to) && cleanPath !== "/"
                   ? "text-cream-50 bg-grass-500/10"
                   : "text-cream-200/70 hover:text-cream-50 hover:bg-grass-500/10",
               )}
@@ -121,7 +127,7 @@ export function Navbar() {
               aria-label={t("a11y.selectLanguage")}
             >
               <Globe className="w-4 h-4" />
-              <span className="hidden sm:inline">{currentLang.label}</span>
+              <span className="hidden sm:inline">{currentLangInfo.label}</span>
               <ChevronDown
                 className={cn(
                   "w-3.5 h-3.5 transition-transform",
@@ -137,7 +143,7 @@ export function Navbar() {
                     onClick={() => handleLanguageChange(lang.code)}
                     className={cn(
                       "w-full flex items-center justify-between px-3 py-2 rounded-md text-sm transition-colors",
-                      i18n.language === lang.code
+                      currentLang === lang.code
                         ? "bg-grass-500/20 text-cream-50"
                         : "text-cream-200/70 hover:text-cream-50 hover:bg-grass-500/10",
                     )}
@@ -182,7 +188,7 @@ export function Navbar() {
                 onClick={closeMenu}
                 className={cn(
                   "px-4 py-2.5 rounded-md text-sm font-medium transition-colors",
-                  location.pathname === link.to
+                  cleanPath === stripLangFromPath(link.to) && cleanPath !== "/"
                     ? "text-cream-50 bg-grass-500/10"
                     : "text-cream-200/80 hover:text-cream-50 hover:bg-grass-500/10",
                 )}
@@ -195,13 +201,10 @@ export function Navbar() {
                 {LANGUAGES.map((lang) => (
                   <button
                     key={lang.code}
-                    onClick={() => {
-                      handleLanguageChange(lang.code);
-                      closeMenu();
-                    }}
+                    onClick={() => handleLanguageChange(lang.code)}
                     className={cn(
                       "flex-1 px-2 py-2 rounded-md text-xs font-medium transition-colors",
-                      i18n.language === lang.code
+                      currentLang === lang.code
                         ? "bg-grass-500/20 text-cream-50"
                         : "text-cream-200/70 hover:text-cream-50 hover:bg-grass-500/10",
                     )}
