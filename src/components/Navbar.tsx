@@ -1,15 +1,13 @@
 import { useEffect, useState, useRef } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import { Boxes, Menu, X, Sun, Moon, Globe, ChevronDown } from "lucide-react";
+import { Boxes, Menu, X, Globe, ChevronDown } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { useTheme } from "@/providers/ThemeProvider";
 import { LANGUAGES } from "@/i18n";
 import type { LanguageCode } from "@/i18n";
 
 export function Navbar() {
   const { t, i18n } = useTranslation();
-  const { theme, toggleTheme } = useTheme();
   const location = useLocation();
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
@@ -68,14 +66,12 @@ export function Navbar() {
       )}
     >
       <nav className="container flex items-center justify-between">
-        {/* Logo */}
         <Link
           to="/"
           className="flex items-center gap-2.5 group"
           onClick={closeMenu}
         >
           <div className="relative w-9 h-9 rounded-md bg-gradient-to-br from-grass-400 to-grass-600 flex items-center justify-center border border-grass-300/40 shadow-block-sm group-hover:scale-105 transition-transform">
-            {/* Pixel block overlay */}
             <div className="absolute inset-0 rounded-md sprite-grass opacity-30" />
             <Boxes className="relative w-5 h-5 text-cream-50" />
             <span className="absolute -top-1 -right-1 w-2.5 h-2.5 rounded-sm bg-ember-500 border border-grass-900" />
@@ -90,7 +86,6 @@ export function Navbar() {
           </div>
         </Link>
 
-        {/* Desktop nav */}
         <div className="hidden lg:flex items-center gap-1">
           {NAV_LINKS.map((link) => (
             <a
@@ -117,26 +112,7 @@ export function Navbar() {
           ))}
         </div>
 
-        {/* Right actions */}
         <div className="hidden md:flex items-center gap-2">
-          {/* Theme toggle */}
-          <button
-            onClick={toggleTheme}
-            className="btn-ghost text-sm"
-            aria-label={theme === "dark" ? t("theme.light") : t("theme.dark")}
-            title={theme === "dark" ? t("theme.light") : t("theme.dark")}
-          >
-            {theme === "dark" ? (
-              <Sun className="w-4 h-4" />
-            ) : (
-              <Moon className="w-4 h-4" />
-            )}
-            <span className="hidden sm:inline">
-              {theme === "dark" ? t("theme.light") : t("theme.dark")}
-            </span>
-          </button>
-
-          {/* Language selector */}
           <div className="relative" ref={langRef}>
             <button
               onClick={() => setLangOpen((v) => !v)}
@@ -177,7 +153,6 @@ export function Navbar() {
           </div>
         </div>
 
-        {/* Mobile toggle */}
         <button
           className="md:hidden w-10 h-10 rounded-md flex items-center justify-center text-cream-100 hover:bg-grass-500/15"
           onClick={() => setMenuOpen((v) => !v)}
@@ -187,7 +162,6 @@ export function Navbar() {
         </button>
       </nav>
 
-      {/* Mobile menu */}
       {menuOpen && (
         <div className="md:hidden container mt-2 animate-drop-bounce">
           <div className="glass rounded-lg border border-grass-500/20 p-3 flex flex-col gap-1">
@@ -216,22 +190,8 @@ export function Navbar() {
                 {link.label}
               </Link>
             ))}
-            <div className="mt-2 pt-2 border-t border-grass-500/15 flex items-center gap-2">
-              <button
-                onClick={() => {
-                  toggleTheme();
-                  closeMenu();
-                }}
-                className="flex-1 btn-ghost text-sm justify-center"
-              >
-                {theme === "dark" ? (
-                  <Sun className="w-4 h-4" />
-                ) : (
-                  <Moon className="w-4 h-4" />
-                )}
-                {theme === "dark" ? t("theme.light") : t("theme.dark")}
-              </button>
-              <div className="flex-1 flex gap-1">
+            <div className="mt-2 pt-2 border-t border-grass-500/15">
+              <div className="flex gap-1">
                 {LANGUAGES.map((lang) => (
                   <button
                     key={lang.code}
