@@ -77,14 +77,20 @@ export function About() {
         <div className="grid lg:grid-cols-3 gap-6">
           {/* Features list - spans 2 cols */}
           <div className="lg:col-span-2 grid sm:grid-cols-2 gap-4">
-            {FEATURES.map((f) => {
+            {FEATURES.map((f, idx) => {
               const Icon = f.icon;
+              const sprites = ["sprite-grass", "sprite-diamond", "sprite-gold", "sprite-emerald", "sprite-redstone", "sprite-lapis"];
               return (
                 <div
                   key={f.title}
-                  className="pixel-card pixel-card-hover p-5"
+                  className="pixel-card pixel-card-corners pixel-card-hover p-5 relative overflow-hidden"
                 >
-                  <div className="w-10 h-10 rounded-md bg-grass-500/15 border border-grass-400/30 flex items-center justify-center mb-3">
+                  {/* Floating sprite decoration */}
+                  <div
+                    className={`absolute top-3 right-3 w-6 h-6 ${sprites[idx % sprites.length]} rounded-sm opacity-15`}
+                    style={{ animation: `pixelFloat ${7 + idx}s ease-in-out ${idx * 0.4}s infinite` }}
+                  />
+                  <div className="relative w-10 h-10 rounded-md bg-grass-500/15 border border-grass-400/30 flex items-center justify-center mb-3">
                     <Icon className="w-5 h-5 text-grass-300" />
                   </div>
                   <h3 className="font-semibold text-cream-100">{f.title}</h3>
@@ -98,7 +104,11 @@ export function About() {
 
           {/* Side panel */}
           <div className="space-y-4">
-            <div className="pixel-card p-6">
+            <div className="pixel-card pixel-card-corners p-6 relative overflow-hidden">
+              <div
+                className="absolute top-3 right-3 w-7 h-7 sprite-emerald rounded-sm opacity-15"
+                style={{ animation: "pixelFloat 9s ease-in-out 0s infinite" }}
+              />
               <div className="flex items-center gap-2 mb-4">
                 <Gamepad2 className="w-5 h-5 text-ember-400" />
                 <h3 className="font-semibold text-cream-100">
@@ -114,9 +124,15 @@ export function About() {
                 <Layers className="w-3.5 h-3.5" />
                 Works with Fabric, Forge, Quilt & more
               </div>
+              {/* Mod loader pixel badges */}
+              <div className="mt-3 flex gap-1.5">
+                <span className="px-2 py-0.5 rounded-sm text-[10px] font-mono bg-grass-500/10 border border-grass-500/20 text-grass-300">Fabric</span>
+                <span className="px-2 py-0.5 rounded-sm text-[10px] font-mono bg-ember-500/10 border border-ember-400/20 text-ember-400">Forge</span>
+                <span className="px-2 py-0.5 rounded-sm text-[10px] font-mono bg-grass-500/10 border border-grass-500/20 text-grass-300">Quilt</span>
+              </div>
             </div>
 
-            <div className="pixel-card p-6">
+            <div className="pixel-card pixel-card-corners p-6">
               <h3 className="font-semibold text-cream-100 mb-3">Tags</h3>
               <div className="flex flex-wrap gap-2">
                 {TAGS.map((tag) => (

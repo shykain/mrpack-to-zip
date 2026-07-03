@@ -69,6 +69,8 @@ export default {
         "pulse-glow": "pulseGlow 2.4s ease-in-out infinite",
         "drop-bounce": "dropBounce 0.5s ease-out",
         "scan-line": "scanLine 2s linear infinite",
+        "pixel-float": "pixelFloat 8s ease-in-out infinite",
+        "pixel-drift": "pixelDrift 12s ease-in-out infinite",
       },
       keyframes: {
         float: {
@@ -87,6 +89,15 @@ export default {
         scanLine: {
           "0%": { transform: "translateY(-100%)" },
           "100%": { transform: "translateY(100%)" },
+        },
+        pixelFloat: {
+          "0%, 100%": { transform: "translateY(0) rotate(0deg)", opacity: "0.6" },
+          "50%": { transform: "translateY(-24px) rotate(8deg)", opacity: "0.9" },
+        },
+        pixelDrift: {
+          "0%, 100%": { transform: "translate(0, 0) rotate(0deg)", opacity: "0.5" },
+          "33%": { transform: "translate(16px, -20px) rotate(6deg)", opacity: "0.8" },
+          "66%": { transform: "translate(-12px, -10px) rotate(-4deg)", opacity: "0.6" },
         },
       },
     },

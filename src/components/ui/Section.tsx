@@ -13,6 +13,8 @@ export function Section({ id, children, className }: SectionProps) {
       id={id}
       className={cn("relative py-16 sm:py-24 scroll-mt-20", className)}
     >
+      {/* Pixel divider at top */}
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-32 h-1 pixel-divider opacity-30" />
       {children}
     </section>
   );
@@ -38,7 +40,10 @@ export function SectionHeader({
         align === "center" ? "mx-auto text-center" : "text-left",
       )}
     >
-      <span className="section-eyebrow">{eyebrow}</span>
+      <span className="section-eyebrow">
+        <span className="w-1.5 h-1.5 rounded-sm sprite-grass" />
+        {eyebrow}
+      </span>
       <h2 className="mt-4 text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight heading-gradient">
         {title}
       </h2>

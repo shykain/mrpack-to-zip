@@ -251,6 +251,167 @@ export function downloadBlob(blob: Blob, fileName: string): void {
 /**
  * Validate that a file looks like a .mrpack file by extension or MIME type.
  */
+export interface FileNode {
+  name: string;
+  path: string;
+  type: "file" | "folder";
+  children?: FileNode[];
+  isMod?: boolean;
+  size?: number;
+}
+
+export interface PackInfo {
+  name: string;
+  versionId: string;
+  game: string;
+  summary?: string;
+  minecraftVersion?: string;
+  modLoader?: string;
+}
+
+export async function parseMrpackStructure(file: File): Promise<{
+  index: ModrinthIndex;
+  fileTree: FileNode[];
+  packInfo: PackInfo;
+  totalFiles: number;
+}> {
+  const zip = await JSZip.loadAsync(file);
+  const indexFile = zip.file("modrinth.index.json");
+
+  if (!indexFile) {
+    throw new Error("Invalid .mrpack file: missing modrinth.index.json");
+  }
+
+  const indexContent = await indexFile.async("string");
+  let index: ModrinthIndex;
+  try {
+    index = JSON.parse(indexContent);
+  } catch {
+    throw new Error("Failed to parse modrinth.index.json");
+  }
+
+  const fileTree: FileNode[] = [];
+  const rootMap = new Map<string, FileNode>();
+
+  const modPaths = new Set<string>();
+  if (index.files) {
+    for (const modFile of index.files) {
+      modPaths.add(modFile.path);
+    }
+  }
+
+  zip.forEach((relativePath, entry) => {
+    const parts = relativePath.split("/");
+    let currentLevel: FileNode[] = fileTree;
+    let currentPath = "";
+
+    for (let i = 0; i < parts.length; i++) {
+      const part = parts[i];
+      currentPath = currentPath ? `${currentPath}/${part}` : part;
+
+      const existing = currentLevel.find((node) => node.name === part);
+      if (existing) {
+        currentLevel = existing.children || [];
+        continue;
+      }
+
+      const isLast = i === parts.length - 1;
+      const node: FileNode = {
+        name: part,
+        path: currentPath,
+        type: isLast ? (entry.dir ? "folder" : "file") : "folder",
+        children: [],
+        isMod: modPaths.has(currentPath),
+      };
+
+      if (isLast && !entry.dir) {
+        rootMap.set(currentPath, node);
+      }
+
+      currentLevel.push(node);
+      currentLevel = node.children || [];
+    }
+  });
+
+  for (const modFile of index.files) {
+    const node = rootMap.get(modFile.path);
+    if (node) {
+      node.isMod = true;
+      node.size = modFile.fileSize;
+    } else {
+      const parts = modFile.path.split("/");
+      let currentLevel: FileNode[] = fileTree;
+      let currentPath = "";
+
+      for (let i = 0; i < parts.length; i++) {
+        const part = parts[i];
+        currentPath = currentPath ? `${currentPath}/${part}` : part;
+
+        let existing = currentLevel.find((node) => node.name === part);
+        if (!existing) {
+          const isLast = i === parts.length - 1;
+          existing = {
+            name: part,
+            path: currentPath,
+            type: isLast ? "file" : "folder",
+            children: [],
+            isMod: isLast,
+            size: isLast ? modFile.fileSize : undefined,
+          };
+          currentLevel.push(existing);
+        }
+        currentLevel = existing.children || [];
+      }
+    }
+  }
+
+  function sortNodes(nodes: FileNode[]): FileNode[] {
+    return nodes
+      .map((node) => ({
+        ...node,
+        children: node.children ? sortNodes(node.children) : undefined,
+      }))
+      .sort((a, b) => {
+        if (a.type === b.type) return a.name.localeCompare(b.name);
+        return a.type === "folder" ? -1 : 1;
+      });
+  }
+
+  const sortedTree = sortNodes(fileTree);
+
+  let totalFiles = 0;
+  function countFiles(nodes: FileNode[]): void {
+    for (const node of nodes) {
+      if (node.type === "file") totalFiles++;
+      if (node.children) countFiles(node.children);
+    }
+  }
+  countFiles(sortedTree);
+
+  let minecraftVersion: string | undefined;
+  let modLoader: string | undefined;
+  if (index.dependencies) {
+    minecraftVersion = index.dependencies.minecraft;
+    const loaders = Object.keys(index.dependencies).filter((k) =>
+      ["fabric-loader", "forge", "quilt-loader"].includes(k),
+    );
+    if (loaders.length > 0) {
+      modLoader = loaders[0].replace("-loader", "").replace("loader-", "");
+    }
+  }
+
+  const packInfo: PackInfo = {
+    name: index.name || file.name.replace(/\.mrpack$/i, ""),
+    versionId: index.versionId || "Unspecified",
+    game: index.game || "Unknown",
+    summary: index.summary,
+    minecraftVersion,
+    modLoader: modLoader ? modLoader.charAt(0).toUpperCase() + modLoader.slice(1) : undefined,
+  };
+
+  return { index, fileTree: sortedTree, packInfo, totalFiles };
+}
+
 export function isValidMrpackFile(file: File): boolean {
   const name = file.name.toLowerCase();
   return (
@@ -270,4 +431,94 @@ export function formatBytes(bytes: number): string {
   const sizes = ["B", "KB", "MB", "GB"];
   const i = Math.floor(Math.log(bytes) / Math.log(k));
   return `${parseFloat((bytes / Math.pow(k, i)).toFixed(1))} ${sizes[i]}`;
+}
+
+const MODRINTH_API = "https://api.modrinth.com/v2/project/";
+const MODRINTH_VERSIONS_ENDPOINT = "/version";
+
+function extractProjectIdOrSlug(input: string): string {
+  const trimmed = input.trim();
+
+  // Handle full Modrinth URLs like:
+  // https://modrinth.com/project/1KVo5zza
+  // https://modrinth.com/modpack/fabulously-optimized
+  // https://modrinth.com/mod/sodium
+  const urlMatch = trimmed.match(
+    /modrinth\.com\/(?:project|modpack|mod|plugin|shader|resourcepack)\/([^/?#]+)/i,
+  );
+  if (urlMatch) {
+    return decodeURIComponent(urlMatch[1]);
+  }
+
+  return trimmed;
+}
+
+export async function getMrpackUrlFromProjectId(
+  projectIdOrSlug: string,
+): Promise<string> {
+  const id = extractProjectIdOrSlug(projectIdOrSlug);
+
+  const response = await fetch(
+    `${MODRINTH_API}${encodeURIComponent(id)}${MODRINTH_VERSIONS_ENDPOINT}`,
+  );
+
+  if (!response.ok) {
+    throw new Error(
+      `Invalid project ID or slug "${id}". Make sure it's a Modrinth modpack.`,
+    );
+  }
+
+  const versions: Array<{
+    files: Array<{ url: string; filename: string }>;
+  }> = await response.json();
+
+  if (!versions || versions.length === 0) {
+    throw new Error("No versions found for this project.");
+  }
+
+  const latestVersion = versions[0];
+  if (!latestVersion.files || latestVersion.files.length === 0) {
+    throw new Error("No files found in the latest version.");
+  }
+
+  const mrpackFile = latestVersion.files.find((f) =>
+    f.filename.endsWith(".mrpack"),
+  );
+
+  if (!mrpackFile || !mrpackFile.url) {
+    throw new Error("No .mrpack file found in the latest version.");
+  }
+
+  return mrpackFile.url;
+}
+
+export async function downloadMrpackFromUrl(
+  url: string,
+): Promise<{ blob: Blob; name: string }> {
+  if (!url.includes("mrpack")) {
+    throw new Error("That is not a valid .mrpack URL.");
+  }
+
+  const response = await fetch(url);
+
+  if (!response.ok) {
+    throw new Error("Failed to download the .mrpack file.");
+  }
+
+  const blob = await response.blob();
+  const contentDisposition = response.headers.get("Content-Disposition");
+  let filename = "download.mrpack";
+
+  if (contentDisposition) {
+    const match = contentDisposition.match(/filename[^;=\n]*=((['"]).*?\2|[^;\n]*)/);
+    if (match && match[1]) {
+      filename = match[1].replace(/['"]/g, "");
+    }
+  }
+
+  if (!filename.endsWith(".mrpack")) {
+    filename = `${filename}.mrpack`;
+  }
+
+  return { blob, name: filename };
 }

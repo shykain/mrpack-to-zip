@@ -1,8 +1,15 @@
 import { useRef, useCallback, type DragEvent } from "react";
-import { UploadCloud, FileBox, X } from "lucide-react";
+import { UploadCloud, FileBox, X, ShieldCheck } from "lucide-react";
 import { useConvertStore } from "@/lib/store";
 import { formatBytes } from "@/lib/converter";
 import { cn } from "@/lib/utils";
+
+const steps = [
+  { text: "Get a .mrpack file (e.g. from Modrinth)" },
+  { text: "Upload it below (processed in your browser)" },
+  { text: "Choose your conversion options" },
+  { text: "Click Convert and download the ZIP" },
+];
 
 export function DropZone() {
   const inputRef = useRef<HTMLInputElement>(null);
@@ -97,75 +104,96 @@ export function DropZone() {
   }
 
   return (
-    <div
-      onDrop={onDrop}
-      onDragOver={onDragOver}
-      onDragLeave={onDragLeave}
-      onClick={openPicker}
-      role="button"
-      tabIndex={0}
-      onKeyDown={(e) => {
-        if (e.key === "Enter" || e.key === " ") openPicker();
-      }}
-      className={cn(
-        "group relative w-full p-8 sm:p-12 rounded-xl cursor-pointer transition-all duration-300",
-        "border-2 border-dashed",
-        isDragging
-          ? "border-grass-400 bg-grass-500/15 scale-[1.01] shadow-glow"
-          : "border-grass-500/40 bg-grass-900/40 hover:border-grass-400/70 hover:bg-grass-900/60",
-      )}
-    >
-      <input
-        ref={inputRef}
-        type="file"
-        accept=".mrpack,.zip,application/zip"
-        className="hidden"
-        onChange={(e) => handleFiles(e.target.files)}
-      />
-
-      <div className="flex flex-col items-center text-center">
-        <div
-          className={cn(
-            "w-16 h-16 sm:w-20 sm:h-20 rounded-2xl flex items-center justify-center mb-5 transition-all duration-300",
-            "bg-gradient-to-br from-grass-500/30 to-grass-700/30 border border-grass-400/40",
-            isDragging
-              ? "scale-110 animate-pulse-glow"
-              : "group-hover:scale-105 group-hover:-translate-y-1",
-          )}
-        >
-          <UploadCloud
-            className={cn(
-              "w-8 h-8 sm:w-10 sm:h-10 text-grass-300",
-              isDragging && "animate-bounce",
-            )}
-          />
-        </div>
-
-        <p className="text-lg sm:text-xl font-semibold text-cream-100">
-          {isDragging
-            ? "Drop your .mrpack file here"
-            : "Drag & drop your .mrpack file here"}
-        </p>
-        <p className="mt-2 text-sm text-cream-200/50">or</p>
-        <button
-          type="button"
-          className="btn-primary mt-3 pointer-events-none"
-          tabIndex={-1}
-        >
-          Browse Files
-        </button>
-
-        {error && (
-          <p className="mt-4 text-sm text-red-300 max-w-sm">{error}</p>
-        )}
+    <div className="space-y-5">
+      <div className="space-y-3">
+        {steps.map((step, i) => (
+          <div key={i} className="flex items-start gap-3">
+            <div className="shrink-0 w-6 h-6 rounded-full bg-grass-500/20 border border-grass-400/40 flex items-center justify-center text-xs font-bold text-grass-300">
+              {i + 1}
+            </div>
+            <p className="text-sm text-cream-200/70 pt-0.5">{step.text}</p>
+          </div>
+        ))}
       </div>
 
-      {/* Decorative scan line on drag */}
-      {isDragging && (
-        <div className="absolute inset-0 rounded-xl overflow-hidden pointer-events-none">
-          <div className="absolute inset-x-0 h-px bg-grass-400/60 animate-scan-line" />
+      <div className="pt-3 border-t border-cream-700/30">
+        <div
+          onDrop={onDrop}
+          onDragOver={onDragOver}
+          onDragLeave={onDragLeave}
+          onClick={openPicker}
+          role="button"
+          tabIndex={0}
+          onKeyDown={(e) => {
+            if (e.key === "Enter" || e.key === " ") openPicker();
+          }}
+          className={cn(
+            "group relative w-full p-6 sm:p-8 rounded-xl cursor-pointer transition-all duration-300",
+            "border-2 border-dashed",
+            isDragging
+              ? "border-grass-400 bg-grass-500/15 scale-[1.01] shadow-glow"
+              : "border-grass-500/40 bg-grass-900/40 hover:border-grass-400/70 hover:bg-grass-900/60",
+          )}
+        >
+          <input
+            ref={inputRef}
+            type="file"
+            accept=".mrpack,.zip,application/zip"
+            className="hidden"
+            onChange={(e) => handleFiles(e.target.files)}
+          />
+
+          <div className="flex flex-col items-center text-center">
+            <div
+              className={cn(
+                "w-14 h-14 sm:w-16 sm:h-16 rounded-2xl flex items-center justify-center mb-4 transition-all duration-300",
+                "bg-gradient-to-br from-grass-500/30 to-grass-700/30 border border-grass-400/40",
+                isDragging
+                  ? "scale-110 animate-pulse-glow"
+                  : "group-hover:scale-105 group-hover:-translate-y-1",
+              )}
+            >
+              <UploadCloud
+                className={cn(
+                  "w-7 h-7 sm:w-8 sm:h-8 text-grass-300",
+                  isDragging && "animate-bounce",
+                )}
+              />
+            </div>
+
+            <p className="text-base sm:text-lg font-semibold text-cream-100">
+              {isDragging
+                ? "Drop your .mrpack file here"
+                : "Drag & drop your .mrpack file here"}
+            </p>
+            <p className="mt-1.5 text-sm text-cream-200/50">or</p>
+            <button
+              type="button"
+              className="btn-primary mt-3 pointer-events-none text-sm px-6 py-2"
+              tabIndex={-1}
+            >
+              Browse Files
+            </button>
+
+            {error && (
+              <p className="mt-4 text-sm text-red-300 max-w-sm">{error}</p>
+            )}
+          </div>
+
+          {isDragging && (
+            <div className="absolute inset-0 rounded-xl overflow-hidden pointer-events-none">
+              <div className="absolute inset-x-0 h-px bg-grass-400/60 animate-scan-line" />
+            </div>
+          )}
         </div>
-      )}
+      </div>
+
+      <div className="flex items-start gap-2 p-3 rounded-lg bg-grass-500/10 border border-grass-500/20">
+        <ShieldCheck className="w-4 h-4 text-grass-400 shrink-0 mt-0.5" />
+        <p className="text-xs text-cream-200/60 leading-relaxed">
+          Files are processed entirely in your browser — nothing is uploaded to any server.
+        </p>
+      </div>
     </div>
   );
 }

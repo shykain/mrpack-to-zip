@@ -9,6 +9,7 @@ const STEPS = [
     description:
       "Upload your .mrpack file to our tool. The file is processed entirely in your browser and never sent to any server.",
     accent: "from-grass-400 to-grass-600",
+    sprite: "sprite-grass",
   },
   {
     number: "02",
@@ -17,6 +18,7 @@ const STEPS = [
     description:
       "Our tool extracts the modrinth.index.json file and analyzes the mod structure, preparing it for conversion to standard ZIP format.",
     accent: "from-ember-400 to-ember-600",
+    sprite: "sprite-redstone",
   },
   {
     number: "03",
@@ -25,6 +27,7 @@ const STEPS = [
     description:
       "The tool packages all files according to your settings and creates a standard ZIP file ready for download.",
     accent: "from-grass-300 to-grass-500",
+    sprite: "sprite-emerald",
   },
 ];
 
@@ -46,7 +49,13 @@ export function HowItWorks() {
             const Icon = step.icon;
             return (
               <div key={step.number} className="relative">
-                <div className="pixel-card pixel-card-hover p-6 h-full">
+                <div className="pixel-card pixel-card-corners pixel-card-hover p-6 h-full relative overflow-hidden">
+                  {/* Floating sprite decoration */}
+                  <div
+                    className={`absolute top-3 right-3 w-8 h-8 ${step.sprite} rounded-sm opacity-20`}
+                    style={{ animation: `pixelFloat ${6 + idx}s ease-in-out ${idx * 0.5}s infinite` }}
+                  />
+
                   {/* Number badge */}
                   <div className="flex items-center justify-between mb-4">
                     <div
@@ -65,6 +74,18 @@ export function HowItWorks() {
                   <p className="mt-2 text-sm text-cream-200/60 leading-relaxed">
                     {step.description}
                   </p>
+
+                  {/* Mini crafting grid decoration */}
+                  <div className="mt-4 flex gap-1">
+                    {[0, 1, 2].map((ci) => (
+                      <div
+                        key={ci}
+                        className={`w-2 h-2 rounded-sm ${
+                          ci <= idx ? "bg-grass-400/60" : "bg-grass-900/60 border border-grass-500/15"
+                        }`}
+                      />
+                    ))}
+                  </div>
                 </div>
 
                 {/* Arrow between steps (mobile) */}

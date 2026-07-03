@@ -33,6 +33,8 @@ export type ConvertStatus =
   | "done"
   | "error";
 
+export type InputMode = "project" | "url" | "file";
+
 export interface ConvertProgress {
   status: ConvertStatus;
   progress: number;

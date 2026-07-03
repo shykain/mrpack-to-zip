@@ -67,20 +67,30 @@ export function ProgressBar() {
 
       {!isError && (
         <>
-          <div className="relative h-2.5 rounded-full bg-grass-900 overflow-hidden border border-grass-500/20">
+          {/* Minecraft XP-style progress bar */}
+          <div className="relative h-3 rounded-sm bg-grass-950 overflow-hidden border border-black/50">
             <div
               className={cn(
-                "absolute inset-y-0 left-0 rounded-full transition-all duration-300 ease-out",
+                "absolute inset-y-0 left-0 transition-all duration-300 ease-out",
                 status === "done"
-                  ? "bg-gradient-to-r from-grass-400 to-grass-300"
-                  : "bg-gradient-to-r from-grass-600 via-grass-500 to-ember-500",
+                  ? "bg-gradient-to-b from-[#5eff5e] via-[#17dd62] to-[#0aa040]"
+                  : "bg-gradient-to-b from-[#5eff5e] via-[#17dd62] to-[#0aa040]",
               )}
-              style={{ width: `${progress}%` }}
+              style={{
+                width: `${progress}%`,
+                boxShadow: "inset 0 1px 0 rgba(255,255,255,0.3)",
+              }}
             >
               {isBusy && (
-                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent animate-scan-line" />
+                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/25 to-transparent animate-scan-line" />
               )}
             </div>
+            {/* XP bar texture overlay */}
+            <div className="absolute inset-0 pointer-events-none opacity-20"
+              style={{
+                backgroundImage: "repeating-linear-gradient(90deg, transparent 0, transparent 3px, rgba(0,0,0,0.15) 3px, rgba(0,0,0,0.15) 4px)",
+              }}
+            />
           </div>
 
           {(status === "downloading" || status === "done") &&
