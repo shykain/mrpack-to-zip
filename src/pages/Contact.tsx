@@ -65,10 +65,10 @@ export default function Contact() {
                     {t("contact.emailText")}
                   </p>
                   <a
-                    href="mailto:hello@mrpacktozip.cc"
+                    href="mailto:hello@mrpacktozip.club"
                     className="text-sm text-grass-300 hover:text-grass-200 transition-colors"
                   >
-                    hello@mrpacktozip.cc
+                    hello@mrpacktozip.club
                   </a>
                 </div>
 
