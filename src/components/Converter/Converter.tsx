@@ -53,7 +53,7 @@ export function Converter() {
           </span>
         </div>
 
-        <div className={`grid gap-6 lg:gap-8 ${inputMode === "file" && selectedFile ? "grid-cols-1 lg:grid-cols-2" : "grid-cols-1 max-w-2xl mx-auto"}`}>
+        <div className={`grid gap-6 lg:gap-8 ${selectedFile ? "grid-cols-1 lg:grid-cols-2" : "grid-cols-1 max-w-2xl mx-auto"}`}>
           <div className="space-y-6">
             <div className="pixel-card pixel-card-corners noise-overlay p-6">
               <InputModeSelector />
@@ -80,18 +80,7 @@ export function Converter() {
 
             <PackInfoCard />
 
-            {showConvertBtn && (
-              <div className="flex justify-center">
-                <button
-                  onClick={start}
-                  disabled={isBusy}
-                  className="btn-primary text-base px-8 py-3.5 w-full sm:w-auto"
-                >
-                  <Sparkles className="w-5 h-5" />
-                  Convert to ZIP
-                </button>
-              </div>
-            )}
+
 
             {!isDone && status !== "idle" && (
               <div className="pixel-card pixel-card-corners noise-overlay p-6">
@@ -119,11 +108,25 @@ export function Converter() {
             )}
           </div>
 
-          {inputMode === "file" && selectedFile && (
-            <div className="lg:sticky lg:top-28 lg:self-start h-fit animate-drop-bounce">
-              <div className="h-[500px] lg:h-[80vh]">
-                <FileStructure />
-              </div>
+          {selectedFile && (
+            <div className="lg:sticky lg:top-28 lg:self-start h-fit animate-drop-bounce space-y-6">
+              {(inputMode === "file") && (
+                <div className="h-[500px] lg:h-[65vh]">
+                  <FileStructure />
+                </div>
+              )}
+              {showConvertBtn && (
+                <div className="flex justify-center">
+                  <button
+                    onClick={start}
+                    disabled={isBusy}
+                    className="btn-primary text-base px-8 py-3.5 w-full sm:w-auto"
+                  >
+                    <Sparkles className="w-5 h-5" />
+                    Convert to ZIP
+                  </button>
+                </div>
+              )}
             </div>
           )}
         </div>
