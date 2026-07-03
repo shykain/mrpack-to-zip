@@ -118,7 +118,7 @@ export function Navbar() {
               onClick={() => setLangOpen((v) => !v)}
               className="btn-ghost text-sm"
               aria-expanded={langOpen}
-              aria-label="Select language"
+              aria-label={t("a11y.selectLanguage")}
             >
               <Globe className="w-4 h-4" />
               <span className="hidden sm:inline">{currentLang.label}</span>
@@ -156,7 +156,7 @@ export function Navbar() {
         <button
           className="md:hidden w-10 h-10 rounded-md flex items-center justify-center text-cream-100 hover:bg-grass-500/15"
           onClick={() => setMenuOpen((v) => !v)}
-          aria-label="Toggle menu"
+          aria-label={t("a11y.toggleMenu")}
         >
           {menuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
         </button>

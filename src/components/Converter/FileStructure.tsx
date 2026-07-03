@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Folder, FolderOpen, FileCode, File, Package, ChevronDown, ChevronRight, Loader2, FileBox } from "lucide-react";
+import { useTranslation } from "react-i18next";
 import { useConvertStore } from "@/lib/store";
 import { formatBytes } from "@/lib/converter";
 
@@ -97,6 +98,7 @@ function TreeNode({
 }
 
 export function FileStructure() {
+  const { t } = useTranslation();
   const fileTree = useConvertStore((s) => s.fileTree);
   const packInfo = useConvertStore((s) => s.packInfo);
   const isParsingStructure = useConvertStore((s) => s.isParsingStructure);
@@ -116,7 +118,7 @@ export function FileStructure() {
             <Folder className="w-8 h-8 text-cream-200/30" />
           </div>
           <p className="text-sm text-cream-200/40">
-            Upload a .mrpack file to view its structure
+            {t("fileStructure.uploadToView")}
           </p>
         </div>
       </div>
@@ -127,10 +129,10 @@ export function FileStructure() {
     <div className="pixel-card p-6 h-full flex flex-col">
       <div className="flex items-center justify-between mb-4">
         <h3 className="text-sm font-semibold text-cream-200/80 uppercase tracking-wider">
-          {showFileList ? "File Structure" : "Pack Info"}
+          {showFileList ? t("fileStructure.fileStructure") : t("fileStructure.packInfo")}
         </h3>
         {showFileList && packInfo && (
-          <span className="text-xs text-cream-200/50">{totalFiles} files</span>
+          <span className="text-xs text-cream-200/50">{t("fileStructure.files", { count: totalFiles })}</span>
         )}
       </div>
 
@@ -141,19 +143,19 @@ export function FileStructure() {
               <FileBox className="w-5 h-5 text-grass-300" />
             </div>
             <div className="flex-1 min-w-0">
-              <span className="text-cream-200/50 text-xs">Selected file</span>
+              <span className="text-cream-200/50 text-xs">{t("fileStructure.selectedFile")}</span>
               <div className="text-cream-200 font-medium text-sm truncate">
                 {selectedFile.name}
               </div>
               <div className="text-xs text-cream-200/60">
-                {formatBytes(selectedFile.size)} · .mrpack file
+                {formatBytes(selectedFile.size)} · {t("fileStructure.mrpackFile")}
               </div>
             </div>
           </div>
           {isParsingStructure && (
             <div className="mt-3 flex items-center gap-2 text-xs text-cream-200/60">
               <Loader2 className="w-3.5 h-3.5 text-grass-400 animate-spin" />
-              Parsing structure...
+              {t("fileStructure.parsing")}
             </div>
           )}
         </div>
@@ -163,20 +165,20 @@ export function FileStructure() {
         <div className="mb-4 p-3 rounded-lg bg-cream-800/30 border border-cream-700/30">
           <div className="grid grid-cols-2 gap-x-4 gap-y-2 text-xs">
             <div>
-              <span className="text-cream-200/50">Name</span>
+              <span className="text-cream-200/50">{t("fileStructure.name")}</span>
               <div className="text-cream-200 font-medium truncate">
                 {packInfo.name}
               </div>
             </div>
             <div>
-              <span className="text-cream-200/50">Version</span>
+              <span className="text-cream-200/50">{t("fileStructure.version")}</span>
               <div className="text-cream-200 font-medium truncate">
                 {packInfo.versionId}
               </div>
             </div>
             {packInfo.minecraftVersion && (
               <div>
-                <span className="text-cream-200/50">Minecraft</span>
+                <span className="text-cream-200/50">{t("fileStructure.minecraft")}</span>
                 <div className="text-grass-300 font-medium">
                   {packInfo.minecraftVersion}
                 </div>
@@ -184,7 +186,7 @@ export function FileStructure() {
             )}
             {packInfo.modLoader && (
               <div>
-                <span className="text-cream-200/50">Mod Loader</span>
+                <span className="text-cream-200/50">{t("fileStructure.modLoader")}</span>
                 <div className="text-ember-300 font-medium">
                   {packInfo.modLoader}
                 </div>
@@ -205,7 +207,7 @@ export function FileStructure() {
             <div className="flex items-center gap-3 text-xs">
               <span className="flex items-center gap-1">
                 <Package className="w-3.5 h-3.5 text-grass-400" />
-                <span className="text-cream-200/50">{modCount} mods</span>
+                <span className="text-cream-200/50">{t("fileStructure.mods", { count: modCount })}</span>
               </span>
             </div>
           </div>
@@ -217,7 +219,7 @@ export function FileStructure() {
               </div>
             ) : fileTree.length === 0 ? (
               <p className="text-sm text-cream-200/40 text-center">
-                No files found
+                {t("fileStructure.noFiles")}
               </p>
             ) : (
               fileTree.map((node) => <TreeNode key={node.path} node={node} />)
@@ -229,7 +231,7 @@ export function FileStructure() {
       {!showFileList && (
         <div className="flex-1 flex items-center justify-center">
           <p className="text-sm text-cream-200/40 text-center">
-            File structure is only available when uploading local files
+            {t("fileStructure.onlyUpload")}
           </p>
         </div>
       )}

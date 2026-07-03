@@ -5,6 +5,7 @@ import {
   FileJson,
   type LucideIcon,
 } from "lucide-react";
+import { useTranslation } from "react-i18next";
 import { useConvertStore } from "@/lib/store";
 import type { ConvertOptions } from "@/lib/types";
 import { cn } from "@/lib/utils";
@@ -17,44 +18,44 @@ interface OptionConfig {
   accent: string;
 }
 
-const OPTIONS: OptionConfig[] = [
-  {
-    key: "downloadModFiles",
-    label: "Download mod files",
-    description:
-      "Fetch all JAR files referenced in the modpack index from Modrinth CDN",
-    icon: Download,
-    accent: "text-grass-300",
-  },
-  {
-    key: "keepOriginalStructure",
-    label: "Keep folder structure",
-    description: "Preserve the original modpack directory layout",
-    icon: FolderTree,
-    accent: "text-ember-400",
-  },
-  {
-    key: "normalizeFilenames",
-    label: "Normalize filenames",
-    description: "Rename files to ASCII-safe characters for compatibility",
-    icon: Wand2,
-    accent: "text-grass-200",
-  },
-  {
-    key: "includeIndexFile",
-    label: "Include index file",
-    description: "Keep modrinth.index.json in the output ZIP",
-    icon: FileJson,
-    accent: "text-ember-400",
-  },
-];
-
 export function OptionsPanel() {
+  const { t } = useTranslation();
   const options = useConvertStore((s) => s.options);
   const setOption = useConvertStore((s) => s.setOption);
   const status = useConvertStore((s) => s.status);
   const isBusy =
     status === "parsing" || status === "downloading" || status === "packaging";
+
+  const OPTIONS: OptionConfig[] = [
+    {
+      key: "downloadModFiles",
+      label: t("options.downloadMods.label"),
+      description: t("options.downloadMods.desc"),
+      icon: Download,
+      accent: "text-grass-300",
+    },
+    {
+      key: "keepOriginalStructure",
+      label: t("options.keepStructure.label"),
+      description: t("options.keepStructure.desc"),
+      icon: FolderTree,
+      accent: "text-ember-400",
+    },
+    {
+      key: "normalizeFilenames",
+      label: t("options.normalize.label"),
+      description: t("options.normalize.desc"),
+      icon: Wand2,
+      accent: "text-grass-200",
+    },
+    {
+      key: "includeIndexFile",
+      label: t("options.includeIndex.label"),
+      description: t("options.includeIndex.desc"),
+      icon: FileJson,
+      accent: "text-ember-400",
+    },
+  ];
 
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">

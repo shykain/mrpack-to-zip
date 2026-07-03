@@ -1,15 +1,11 @@
 import { useRef, useEffect, KeyboardEvent, useCallback } from "react";
 import { Globe, Loader2, Link } from "lucide-react";
+import { useTranslation } from "react-i18next";
 import { useConvertStore } from "@/lib/store";
 
-const steps = [
-  { text: "Paste a Modrinth project page URL (e.g. modrinth.com/project/...)" },
-  { text: "Or paste a direct .mrpack download link from the Versions tab" },
-  { text: "Auto-download starts after you paste" },
-  { text: "Wait for the pack to be converted" },
-];
-
 export function UrlInput() {
+  const { t } = useTranslation();
+  const steps = t("urlInput.steps", { returnObjects: true }) as string[];
   const mrpackUrl = useConvertStore((s) => s.mrpackUrl);
   const setMrpackUrl = useConvertStore((s) => s.setMrpackUrl);
   const fetchFromUrl = useConvertStore((s) => s.fetchFromUrl);
@@ -68,7 +64,7 @@ export function UrlInput() {
             <div className="shrink-0 w-6 h-6 rounded-full bg-ember-500/20 border border-ember-400/40 flex items-center justify-center text-xs font-bold text-ember-300">
               {i + 1}
             </div>
-            <p className="text-sm text-cream-200/70 pt-0.5">{step.text}</p>
+            <p className="text-sm text-cream-200/70 pt-0.5">{step}</p>
           </div>
         ))}
       </div>
@@ -83,7 +79,7 @@ export function UrlInput() {
               value={mrpackUrl}
               onChange={(e) => setMrpackUrl(e.target.value)}
               onKeyDown={handleKeyDown}
-              placeholder="https://modrinth.com/project/... or https://cdn.modrinth.com/..."
+              placeholder={t("urlInput.placeholder")}
               className="w-full pl-12 pr-4 py-3 rounded-xl bg-ink-900/60 border border-grass-500/30 text-cream-50 placeholder:text-cream-200/40 focus:outline-none focus:border-grass-500/60 focus:ring-1 focus:ring-grass-500/40 transition-all font-mono text-sm"
               disabled={isBusy}
             />
@@ -97,12 +93,12 @@ export function UrlInput() {
             {isBusy ? (
               <>
                 <Loader2 className="w-5 h-5 animate-spin" />
-                Downloading...
+                {t("urlInput.downloading")}
               </>
             ) : (
               <>
                 <Link className="w-5 h-5" />
-                Download from URL
+                {t("urlInput.downloadBtn")}
               </>
             )}
           </button>
@@ -112,7 +108,7 @@ export function UrlInput() {
       <div className="flex items-start gap-2 p-3 rounded-lg bg-ember-500/10 border border-ember-500/20">
         <Link className="w-4 h-4 text-ember-300 shrink-0 mt-0.5" />
         <p className="text-xs text-cream-200/60 leading-relaxed">
-          Both Modrinth project page URLs and direct <code className="text-ember-300">.mrpack</code> download links are supported.
+          {t("urlInput.supported")}
         </p>
       </div>
     </div>

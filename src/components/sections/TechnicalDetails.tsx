@@ -1,28 +1,20 @@
 import { Section, SectionHeader } from "@/components/ui/Section";
 import { FileJson, FileBox, Check, X } from "lucide-react";
-
-const MRPACK_STRUCTURE = [
-  "Contains modrinth.index.json",
-  "Includes metadata about mods",
-  "Uses Modrinth's format",
-  "Files organized by project IDs",
-];
-
-const ZIP_STRUCTURE = [
-  "Contains mod files directly",
-  "Simple folder structure",
-  "Compatible with most launchers",
-  "Files organized by name/function",
-];
+import { useTranslation } from "react-i18next";
 
 export function TechnicalDetails() {
+  const { t } = useTranslation();
+
+  const mrpackStructure = t("techDetails.mrpackList", { returnObjects: true }) as string[];
+  const zipStructure = t("techDetails.zipList", { returnObjects: true }) as string[];
+
   return (
     <Section id="technical">
       <div className="container">
         <SectionHeader
-          eyebrow="Technical Details"
-          title="mrpack vs standard ZIP"
-          description="Modrinth packages (.mrpack) are special ZIP files containing a JSON index file that describes the mod structure and includes metadata about each file."
+          eyebrow={t("techDetails.eyebrow")}
+          title={t("techDetails.title")}
+          description={t("techDetails.description")}
         />
 
         <div className="grid md:grid-cols-2 gap-5">
@@ -35,15 +27,17 @@ export function TechnicalDetails() {
                   <FileJson className="w-5 h-5 text-grass-300" />
                 </div>
                 <div>
-                  <h3 className="font-bold text-cream-100">.mrpack Structure</h3>
+                  <h3 className="font-bold text-cream-100">
+                    {t("techDetails.mrpackStructure")}
+                  </h3>
                   <p className="text-xs text-cream-200/50 font-mono">
-                    Modrinth modpack format
+                    {t("techDetails.mrpackFormat")}
                   </p>
                 </div>
               </div>
 
               <ul className="space-y-2.5">
-                {MRPACK_STRUCTURE.map((item) => (
+                {mrpackStructure.map((item) => (
                   <li
                     key={item}
                     className="flex items-start gap-2.5 text-sm text-cream-200/70"
@@ -72,16 +66,16 @@ export function TechnicalDetails() {
                 </div>
                 <div>
                   <h3 className="font-bold text-cream-100">
-                    Standard ZIP Structure
+                    {t("techDetails.zipStructure")}
                   </h3>
                   <p className="text-xs text-cream-200/50 font-mono">
-                    Universal archive format
+                    {t("techDetails.zipFormat")}
                   </p>
                 </div>
               </div>
 
               <ul className="space-y-2.5">
-                {ZIP_STRUCTURE.map((item) => (
+                {zipStructure.map((item) => (
                   <li
                     key={item}
                     className="flex items-start gap-2.5 text-sm text-cream-200/70"
@@ -107,14 +101,12 @@ export function TechnicalDetails() {
             <div className="w-10 h-10 rounded-md bg-ember-500/15 border border-ember-400/30 flex items-center justify-center">
               <X className="w-5 h-5 text-ember-400" />
             </div>
-            <span className="font-semibold text-cream-100">Key difference</span>
+            <span className="font-semibold text-cream-100">
+              {t("techDetails.keyDifference")}
+            </span>
           </div>
           <p className="text-sm text-cream-200/60 leading-relaxed">
-            A <code className="text-grass-300 font-mono">.mrpack</code> file
-            only <strong className="text-cream-100">references</strong> mods via
-            download URLs in its index — it doesn't contain the actual JAR files
-            (except for overrides). Our converter can optionally download them
-            all and bundle them into a self-contained ZIP.
+            {t("techDetails.keyDiffDesc")}
           </p>
         </div>
       </div>

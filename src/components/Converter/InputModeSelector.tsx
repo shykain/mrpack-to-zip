@@ -1,31 +1,33 @@
 import { Package, Link, Upload } from "lucide-react";
+import { useTranslation } from "react-i18next";
 import { useConvertStore } from "@/lib/store";
 import { type InputMode } from "@/lib/types";
 
-const modes: { key: InputMode; label: string; description: string; icon: React.ReactNode }[] = [
-  {
-    key: "project",
-    label: "Project ID",
-    description: "From Modrinth",
-    icon: <Package className="w-5 h-5" />,
-  },
-  {
-    key: "url",
-    label: "From URL",
-    description: "Paste download link",
-    icon: <Link className="w-5 h-5" />,
-  },
-  {
-    key: "file",
-    label: "Upload File",
-    description: "Local .mrpack",
-    icon: <Upload className="w-5 h-5" />,
-  },
-];
-
 export function InputModeSelector() {
+  const { t } = useTranslation();
   const inputMode = useConvertStore((s) => s.inputMode);
   const setInputMode = useConvertStore((s) => s.setInputMode);
+
+  const modes: { key: InputMode; label: string; description: string; icon: React.ReactNode }[] = [
+    {
+      key: "project",
+      label: t("inputMode.project.label"),
+      description: t("inputMode.project.desc"),
+      icon: <Package className="w-5 h-5" />,
+    },
+    {
+      key: "url",
+      label: t("inputMode.url.label"),
+      description: t("inputMode.url.desc"),
+      icon: <Link className="w-5 h-5" />,
+    },
+    {
+      key: "file",
+      label: t("inputMode.file.label"),
+      description: t("inputMode.file.desc"),
+      icon: <Upload className="w-5 h-5" />,
+    },
+  ];
 
   return (
     <div className="flex gap-2 sm:gap-3">

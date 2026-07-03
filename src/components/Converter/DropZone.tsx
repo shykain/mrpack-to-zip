@@ -1,17 +1,13 @@
 import { useRef, useCallback, type DragEvent } from "react";
 import { UploadCloud, FileBox, X, ShieldCheck } from "lucide-react";
+import { useTranslation } from "react-i18next";
 import { useConvertStore } from "@/lib/store";
 import { formatBytes } from "@/lib/converter";
 import { cn } from "@/lib/utils";
 
-const steps = [
-  { text: "Get a .mrpack file (e.g. from Modrinth)" },
-  { text: "Upload it below (processed in your browser)" },
-  { text: "Choose your conversion options" },
-  { text: "Click Convert and download the ZIP" },
-];
-
 export function DropZone() {
+  const { t } = useTranslation();
+  const steps = t("dropZone.steps", { returnObjects: true }) as string[];
   const inputRef = useRef<HTMLInputElement>(null);
   const selectedFile = useConvertStore((s) => s.selectedFile);
   const isDragging = useConvertStore((s) => s.isDragging);
@@ -83,7 +79,7 @@ export function DropZone() {
               {selectedFile.name}
             </p>
             <p className="mt-1 text-xs sm:text-sm text-cream-200/60">
-              {formatBytes(selectedFile.size)} · .mrpack file
+              {formatBytes(selectedFile.size)} · {t("dropZone.mrpackFile")}
             </p>
             {error && (
               <p className="mt-2 text-xs sm:text-sm text-red-300">{error}</p>
@@ -93,7 +89,7 @@ export function DropZone() {
             <button
               onClick={removeFile}
               className="shrink-0 w-9 h-9 rounded-md flex items-center justify-center text-cream-200/60 hover:text-red-300 hover:bg-red-500/10 transition-colors"
-              aria-label="Remove file"
+              aria-label={t("dropZone.removeFile")}
             >
               <X className="w-5 h-5" />
             </button>
@@ -111,7 +107,7 @@ export function DropZone() {
             <div className="shrink-0 w-6 h-6 rounded-full bg-grass-500/20 border border-grass-400/40 flex items-center justify-center text-xs font-bold text-grass-300">
               {i + 1}
             </div>
-            <p className="text-sm text-cream-200/70 pt-0.5">{step.text}</p>
+            <p className="text-sm text-cream-200/70 pt-0.5">{step}</p>
           </div>
         ))}
       </div>
@@ -163,16 +159,16 @@ export function DropZone() {
 
             <p className="text-base sm:text-lg font-semibold text-cream-100">
               {isDragging
-                ? "Drop your .mrpack file here"
-                : "Drag & drop your .mrpack file here"}
+                ? t("dropZone.dropHere")
+                : t("dropZone.dragDrop")}
             </p>
-            <p className="mt-1.5 text-sm text-cream-200/50">or</p>
+            <p className="mt-1.5 text-sm text-cream-200/50">{t("dropZone.or")}</p>
             <button
               type="button"
               className="btn-primary mt-3 pointer-events-none text-sm px-6 py-2"
               tabIndex={-1}
             >
-              Browse Files
+              {t("dropZone.browseFiles")}
             </button>
 
             {error && (
@@ -191,7 +187,7 @@ export function DropZone() {
       <div className="flex items-start gap-2 p-3 rounded-lg bg-grass-500/10 border border-grass-500/20">
         <ShieldCheck className="w-4 h-4 text-grass-400 shrink-0 mt-0.5" />
         <p className="text-xs text-cream-200/60 leading-relaxed">
-          Files are processed entirely in your browser — nothing is uploaded to any server.
+          {t("dropZone.privacyNote")}
         </p>
       </div>
     </div>

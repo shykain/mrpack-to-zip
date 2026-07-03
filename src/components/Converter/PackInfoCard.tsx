@@ -1,7 +1,9 @@
 import { CheckCircle2, Package, Gamepad2, Cpu, FileText, RefreshCw } from "lucide-react";
+import { useTranslation } from "react-i18next";
 import { useConvertStore } from "@/lib/store";
 
 export function PackInfoCard() {
+  const { t } = useTranslation();
   const packInfo = useConvertStore((s) => s.packInfo);
   const selectedFile = useConvertStore((s) => s.selectedFile);
   const status = useConvertStore((s) => s.status);
@@ -20,18 +22,18 @@ export function PackInfoCard() {
             <CheckCircle2 className="w-5 h-5 text-grass-300" />
           </div>
           <div>
-            <h3 className="font-semibold text-cream-100">Pack Recognized</h3>
-            <p className="text-xs text-cream-200/50">Click Convert to start processing</p>
+            <h3 className="font-semibold text-cream-100">{t("packInfo.title")}</h3>
+            <p className="text-xs text-cream-200/50">{t("packInfo.subtitle")}</p>
           </div>
         </div>
         <button
           onClick={reset}
           className="btn-ghost text-sm px-3 py-2"
-          title="Replace file"
-          aria-label="Replace file"
+          title={t("packInfo.replaceFile")}
+          aria-label={t("packInfo.replaceFile")}
         >
           <RefreshCw className="w-4 h-4" />
-          <span className="hidden sm:inline">Replace</span>
+          <span className="hidden sm:inline">{t("packInfo.replace")}</span>
         </button>
       </div>
 
@@ -40,7 +42,7 @@ export function PackInfoCard() {
           <div className="flex items-start gap-2 p-2 rounded-lg bg-grass-900/40">
             <Package className="w-4 h-4 text-grass-400 shrink-0 mt-0.5" />
             <div>
-              <p className="text-[10px] text-cream-200/50 uppercase tracking-wider">Name</p>
+              <p className="text-[10px] text-cream-200/50 uppercase tracking-wider">{t("packInfo.name")}</p>
               <p className="text-sm text-cream-100 font-medium truncate">{packInfo.name}</p>
             </div>
           </div>
@@ -50,7 +52,7 @@ export function PackInfoCard() {
           <div className="flex items-start gap-2 p-2 rounded-lg bg-grass-900/40">
             <FileText className="w-4 h-4 text-ember-400 shrink-0 mt-0.5" />
             <div>
-              <p className="text-[10px] text-cream-200/50 uppercase tracking-wider">Version</p>
+              <p className="text-[10px] text-cream-200/50 uppercase tracking-wider">{t("packInfo.version")}</p>
               <p className="text-sm text-cream-100 font-medium">{packInfo.versionId}</p>
             </div>
           </div>
@@ -60,7 +62,7 @@ export function PackInfoCard() {
           <div className="flex items-start gap-2 p-2 rounded-lg bg-grass-900/40">
             <Gamepad2 className="w-4 h-4 text-amber-400 shrink-0 mt-0.5" />
             <div>
-              <p className="text-[10px] text-cream-200/50 uppercase tracking-wider">Minecraft</p>
+              <p className="text-[10px] text-cream-200/50 uppercase tracking-wider">{t("packInfo.minecraft")}</p>
               <p className="text-sm text-grass-300 font-medium">{packInfo.minecraftVersion}</p>
             </div>
           </div>
@@ -70,7 +72,7 @@ export function PackInfoCard() {
           <div className="flex items-start gap-2 p-2 rounded-lg bg-grass-900/40">
             <Cpu className="w-4 h-4 text-blue-400 shrink-0 mt-0.5" />
             <div>
-              <p className="text-[10px] text-cream-200/50 uppercase tracking-wider">Loader</p>
+              <p className="text-[10px] text-cream-200/50 uppercase tracking-wider">{t("packInfo.loader")}</p>
               <p className="text-sm text-ember-300 font-medium">{packInfo.modLoader}</p>
             </div>
           </div>
@@ -80,8 +82,8 @@ export function PackInfoCard() {
           <div className="flex items-start gap-2 p-2 rounded-lg bg-grass-900/40 col-span-2">
             <Package className="w-4 h-4 text-grass-400 shrink-0 mt-0.5" />
             <div>
-              <p className="text-[10px] text-cream-200/50 uppercase tracking-wider">Mods</p>
-              <p className="text-sm text-cream-100 font-medium">{modCount} mod files detected</p>
+              <p className="text-[10px] text-cream-200/50 uppercase tracking-wider">{t("packInfo.mods")}</p>
+              <p className="text-sm text-cream-100 font-medium">{t("packInfo.modFilesDetected", { count: modCount })}</p>
             </div>
           </div>
         )}

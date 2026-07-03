@@ -1,8 +1,10 @@
 import { Download, RotateCcw, FileArchive, CheckCircle2 } from "lucide-react";
+import { useTranslation } from "react-i18next";
 import { useConvertStore } from "@/lib/store";
 import { formatBytes } from "@/lib/converter";
 
 export function ResultCard() {
+  const { t } = useTranslation();
   const status = useConvertStore((s) => s.status);
   const fileName = useConvertStore((s) => s.fileName);
   const fileSize = useConvertStore((s) => s.fileSize);
@@ -24,11 +26,11 @@ export function ResultCard() {
         </div>
 
         <h3 className="text-xl sm:text-2xl font-bold text-cream-100">
-          Your ZIP file is ready!
+          {t("result.ready")}
         </h3>
         <p className="mt-2 text-sm text-cream-200/60">
-          {modCount > 0 && `${modCount} mods · `}
-          {skippedFiles > 0 && `${skippedFiles} skipped · `}
+          {modCount > 0 && t("result.mods", { count: modCount })}
+          {skippedFiles > 0 && t("result.skipped", { count: skippedFiles })}
           {fileSize ? formatBytes(fileSize) : ""}
         </p>
 
@@ -42,11 +44,11 @@ export function ResultCard() {
         <div className="mt-6 flex flex-col sm:flex-row items-center gap-3 w-full sm:w-auto">
           <button onClick={download} className="btn-primary w-full sm:w-auto">
             <Download className="w-5 h-5" />
-            Download ZIP
+            {t("result.download")}
           </button>
           <button onClick={reset} className="btn-ghost w-full sm:w-auto">
             <RotateCcw className="w-4 h-4" />
-            Convert another
+            {t("result.convertAnother")}
           </button>
         </div>
       </div>

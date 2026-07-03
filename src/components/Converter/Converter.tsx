@@ -1,4 +1,5 @@
 import { Sparkles, Zap, ShieldCheck } from "lucide-react";
+import { useTranslation } from "react-i18next";
 import { useConvertStore } from "@/lib/store";
 import { DropZone } from "./DropZone";
 import { OptionsPanel } from "./OptionsPanel";
@@ -11,6 +12,7 @@ import { UrlInput } from "./UrlInput";
 import { PackInfoCard } from "./PackInfoCard";
 
 export function Converter() {
+  const { t } = useTranslation();
   const selectedFile = useConvertStore((s) => s.selectedFile);
   const status = useConvertStore((s) => s.status);
   const start = useConvertStore((s) => s.start);
@@ -31,25 +33,24 @@ export function Converter() {
         <div className="text-center mb-6 sm:mb-8">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-grass-500/15 border border-grass-400/30 text-xs font-mono uppercase tracking-wider text-grass-300">
             <Zap className="w-3.5 h-3.5" />
-            100% Browser-side · No uploads
+            {t("hero.badge")}
           </div>
           <h1 className="mt-4 text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight heading-gradient">
-            MRPack to ZIP Converter
+            {t("hero.title")}
           </h1>
           <p className="mt-3 text-sm sm:text-base text-cream-200/60 max-w-xl mx-auto">
-            Convert Modrinth modpack files to standard ZIP format with optional
-            mod downloading. Fast, private, and free.
+            {t("hero.subtitle")}
           </p>
         </div>
 
         <div className="flex flex-wrap items-center justify-center gap-x-5 gap-y-2 mb-6 sm:mb-8 text-xs text-cream-200/50">
           <span className="flex items-center gap-1.5">
             <ShieldCheck className="w-3.5 h-3.5 text-grass-400" />
-            Files never leave your browser
+            {t("hero.privacyNote")}
           </span>
           <span className="flex items-center gap-1.5">
             <Sparkles className="w-3.5 h-3.5 text-ember-400" />
-            No sign-up required
+            {t("hero.freeNote")}
           </span>
         </div>
 
@@ -71,7 +72,7 @@ export function Converter() {
               <div className="pixel-card pixel-card-corners noise-overlay p-6 animate-drop-bounce">
                 <div className="flex items-center justify-between mb-3">
                   <h3 className="text-sm font-semibold text-cream-200/80 uppercase tracking-wider">
-                    Conversion Options
+                    {t("converter.optionsTitle")}
                   </h3>
                 </div>
                 <OptionsPanel />
@@ -96,14 +97,13 @@ export function Converter() {
 
             {!selectedFile && inputMode === "file" && (
               <p className="text-center text-xs text-cream-200/40">
-                Tip: Enable "Download mod files" to fetch all JAR files from Modrinth
-                CDN for a complete, ready-to-use pack.
+                {t("converter.tip")}
               </p>
             )}
 
             {isBusy && (
               <p className="text-center text-xs text-cream-200/40">
-                Processing — this may take a while for large modpacks.
+                {t("converter.processing")}
               </p>
             )}
           </div>
@@ -123,7 +123,7 @@ export function Converter() {
                     className="btn-primary text-base px-8 py-3.5 w-full sm:w-auto"
                   >
                     <Sparkles className="w-5 h-5" />
-                    Convert to ZIP
+                    {t("converter.convertBtn")}
                   </button>
                 </div>
               )}

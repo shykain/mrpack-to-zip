@@ -1,53 +1,56 @@
 import { Link } from "react-router-dom";
 import { Boxes, Heart } from "lucide-react";
-
-const FOOTER_LINKS = [
-  {
-    title: "Tool",
-    links: [
-      { label: "Converter", href: "#converter" },
-      { label: "How It Works", href: "#how-it-works" },
-      { label: "Technical Details", href: "#technical" },
-    ],
-  },
-  {
-    title: "Resources",
-    links: [
-      { label: "Usage Guide", href: "#guide" },
-      { label: "FAQ", href: "#faq" },
-      { label: "Launcher Compatibility", href: "#launchers" },
-    ],
-  },
-  {
-    title: "Legal",
-    links: [
-      { label: "Privacy Policy", href: "/privacy", internal: true },
-      { label: "Contact Us", href: "/contact", internal: true },
-    ],
-  },
-  {
-    title: "External",
-    links: [
-      {
-        label: "Minecraft",
-        href: "https://www.minecraft.net",
-        external: true,
-      },
-      {
-        label: "Modrinth",
-        href: "https://modrinth.com/",
-        external: true,
-      },
-      {
-        label: "CurseForge",
-        href: "https://www.curseforge.com/minecraft",
-        external: true,
-      },
-    ],
-  },
-];
+import { useTranslation } from "react-i18next";
 
 export function Footer() {
+  const { t } = useTranslation();
+
+  const FOOTER_LINKS = [
+    {
+      title: t("footerLinks.tool.title"),
+      links: [
+        { label: t("footerLinks.tool.converter"), href: "#converter" },
+        { label: t("footerLinks.tool.howItWorks"), href: "#how-it-works" },
+        { label: t("footerLinks.tool.technical"), href: "#technical" },
+      ],
+    },
+    {
+      title: t("footerLinks.resources.title"),
+      links: [
+        { label: t("footerLinks.resources.usageGuide"), href: "#guide" },
+        { label: t("footerLinks.resources.faq"), href: "#faq" },
+        { label: t("footerLinks.resources.launcherCompat"), href: "#launchers" },
+      ],
+    },
+    {
+      title: t("footerLinks.legal.title"),
+      links: [
+        { label: t("footerLinks.legal.privacy"), href: "/privacy", internal: true },
+        { label: t("footerLinks.legal.contact"), href: "/contact", internal: true },
+      ],
+    },
+    {
+      title: t("footerLinks.external.title"),
+      links: [
+        {
+          label: t("footerLinks.external.minecraft"),
+          href: "https://www.minecraft.net",
+          external: true,
+        },
+        {
+          label: t("footerLinks.external.modrinth"),
+          href: "https://modrinth.com/",
+          external: true,
+        },
+        {
+          label: t("footerLinks.external.curseforge"),
+          href: "https://www.curseforge.com/minecraft",
+          external: true,
+        },
+      ],
+    },
+  ];
+
   return (
     <footer className="relative mt-10 border-t border-grass-500/20 bg-grass-950/60">
       {/* Pixel divider top */}
@@ -78,8 +81,7 @@ export function Footer() {
               </div>
             </div>
             <p className="text-sm text-cream-200/50 leading-relaxed max-w-xs">
-              Free, private, browser-based converter for Modrinth modpack
-              files. Built for the Minecraft community.
+              {t("footer.description")}
             </p>
             {/* Mini pixel block row */}
             <div className="mt-3 flex gap-1.5">
@@ -130,13 +132,11 @@ export function Footer() {
 
         <div className="mt-10 pt-6 border-t border-grass-500/15 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-cream-200/40">
           <p>
-            © {new Date().getFullYear()} MRPack to ZIP. All processing happens
-            in your browser.
+            © {new Date().getFullYear()} MRPack to ZIP. {t("footer.copyright")}
           </p>
           <p className="flex items-center gap-1.5">
-            Not affiliated with Modrinth. Built with
+            {t("footer.disclaimer")}
             <Heart className="w-3 h-3 text-ember-400 fill-ember-400" />
-            for Minecrafters.
           </p>
         </div>
       </div>

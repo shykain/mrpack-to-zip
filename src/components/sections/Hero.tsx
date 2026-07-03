@@ -1,11 +1,6 @@
 import { Converter } from "@/components/Converter/Converter";
 import { Cpu, Lock, Download } from "lucide-react";
-
-const STATS = [
-  { icon: Cpu, label: "Client-side", value: "100%" },
-  { icon: Lock, label: "Privacy", value: "Full" },
-  { icon: Download, label: "Cost", value: "Free" },
-];
+import { useTranslation } from "react-i18next";
 
 // Floating Minecraft block decorations
 const FLOATING_BLOCKS = [
@@ -30,6 +25,14 @@ const PARTICLES = [
 ];
 
 export function Hero() {
+  const { t } = useTranslation();
+
+  const STATS = [
+    { icon: Cpu, label: t("stats.clientSide"), value: "100%" },
+    { icon: Lock, label: t("stats.privacy"), value: "Full" },
+    { icon: Download, label: t("stats.cost"), value: "Free" },
+  ];
+
   return (
     <section className="relative pt-16 pb-12 sm:pt-20 sm:pb-16 overflow-hidden">
       {/* Floating Minecraft block sprites */}

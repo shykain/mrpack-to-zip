@@ -1,17 +1,10 @@
 import { Loader2, CheckCircle2, AlertCircle, Package } from "lucide-react";
+import { useTranslation } from "react-i18next";
 import { useConvertStore } from "@/lib/store";
 import { cn } from "@/lib/utils";
 
-const STATUS_LABELS: Record<string, string> = {
-  parsing: "Parsing modpack...",
-  downloading: "Downloading mod files...",
-  packaging: "Packaging ZIP archive...",
-  done: "Conversion complete!",
-  error: "Conversion failed",
-  idle: "",
-};
-
 export function ProgressBar() {
+  const { t } = useTranslation();
   const status = useConvertStore((s) => s.status);
   const progress = useConvertStore((s) => s.progress);
   const currentFile = useConvertStore((s) => s.currentFile);
@@ -20,6 +13,15 @@ export function ProgressBar() {
   const skippedFiles = useConvertStore((s) => s.skippedFiles);
   const modCount = useConvertStore((s) => s.modCount);
   const error = useConvertStore((s) => s.error);
+
+  const STATUS_LABELS: Record<string, string> = {
+    parsing: t("progress.parsing"),
+    downloading: t("progress.downloading"),
+    packaging: t("progress.packaging"),
+    done: t("progress.done"),
+    error: t("progress.error"),
+    idle: "",
+  };
 
   const isBusy =
     status === "parsing" || status === "downloading" || status === "packaging";
@@ -50,7 +52,7 @@ export function ProgressBar() {
         </div>
         <div className="flex-1 min-w-0">
           <p className="font-semibold text-cream-100 text-sm sm:text-base">
-            {isError ? error || "Error" : STATUS_LABELS[status]}
+            {isError ? error || t("progress.errorFallback") : STATUS_LABELS[status]}
           </p>
           {!isError && currentFile && (
             <p className="mt-0.5 text-xs text-cream-200/50 font-mono truncate">
@@ -98,16 +100,16 @@ export function ProgressBar() {
               <div className="mt-3 flex items-center gap-4 text-xs text-cream-200/55">
                 <span className="flex items-center gap-1.5">
                   <Package className="w-3.5 h-3.5" />
-                  {processedFiles}/{totalFiles} mods
+                  {t("progress.mods", { processed: processedFiles, total: totalFiles })}
                 </span>
                 {skippedFiles > 0 && (
                   <span className="text-ember-400">
-                    {skippedFiles} skipped
+                    {t("progress.skipped", { count: skippedFiles })}
                   </span>
                 )}
                 {status === "done" && modCount > 0 && (
                   <span className="text-grass-300">
-                    {modCount} mods ready
+                    {t("progress.modsReady", { count: modCount })}
                   </span>
                 )}
               </div>

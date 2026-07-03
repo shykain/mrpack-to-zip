@@ -1,15 +1,11 @@
 import { useRef, useEffect, KeyboardEvent, useCallback } from "react";
 import { Search, Loader2, ExternalLink } from "lucide-react";
+import { useTranslation } from "react-i18next";
 import { useConvertStore } from "@/lib/store";
 
-const steps = [
-  { text: "Go to a Modrinth modpack project" },
-  { text: "Copy the project ID, slug, or full URL" },
-  { text: "Paste it below and auto-fetch starts" },
-  { text: "Wait for the pack to be converted" },
-];
-
 export function ProjectInput() {
+  const { t } = useTranslation();
+  const steps = t("projectInput.steps", { returnObjects: true }) as string[];
   const projectId = useConvertStore((s) => s.projectId);
   const setProjectId = useConvertStore((s) => s.setProjectId);
   const fetchFromProject = useConvertStore((s) => s.fetchFromProject);
@@ -68,7 +64,7 @@ export function ProjectInput() {
             <div className="shrink-0 w-6 h-6 rounded-full bg-grass-500/20 border border-grass-400/40 flex items-center justify-center text-xs font-bold text-grass-300">
               {i + 1}
             </div>
-            <p className="text-sm text-cream-200/70 pt-0.5">{step.text}</p>
+            <p className="text-sm text-cream-200/70 pt-0.5">{step}</p>
           </div>
         ))}
       </div>
@@ -83,7 +79,7 @@ export function ProjectInput() {
               value={projectId}
               onChange={(e) => setProjectId(e.target.value)}
               onKeyDown={handleKeyDown}
-              placeholder="e.g. fabulously-optimized or 1KVo5zza or full URL"
+              placeholder={t("projectInput.placeholder")}
               className="w-full pl-12 pr-4 py-3 rounded-xl bg-ink-900/60 border border-grass-500/30 text-cream-50 placeholder:text-cream-200/40 focus:outline-none focus:border-grass-500/60 focus:ring-1 focus:ring-grass-500/40 transition-all"
               disabled={isBusy}
             />
@@ -97,12 +93,12 @@ export function ProjectInput() {
             {isBusy ? (
               <>
                 <Loader2 className="w-5 h-5 animate-spin" />
-                Fetching...
+                {t("projectInput.fetching")}
               </>
             ) : (
               <>
                 <Search className="w-5 h-5" />
-                Fetch from Modrinth
+                {t("projectInput.fetchBtn")}
               </>
             )}
           </button>
@@ -117,7 +113,7 @@ export function ProjectInput() {
           rel="noopener noreferrer"
           className="text-xs text-cream-200/50 hover:text-grass-300 transition-colors underline underline-offset-2"
         >
-          Browse modpacks on Modrinth
+          {t("projectInput.browseModpacks")}
         </a>
       </div>
     </div>
