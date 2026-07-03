@@ -235,8 +235,18 @@ export async function convertToZip(
     compressionOptions: { level: 6 },
   });
 
-  const baseName = file.name.replace(/\.mrpack$/i, "");
-  const outputFileName = `${baseName}.zip`;
+  let outputFileName: string;
+  if (index.name && index.versionId) {
+    const safeName = index.name.replace(/[<>:"/\\|?*\x00-\x1f]/g, "_").trim();
+    const safeVersion = index.versionId.replace(/[<>:"/\\|?*\x00-\x1f]/g, "_").trim();
+    outputFileName = `${safeName} ${safeVersion}.zip`;
+  } else if (index.name) {
+    const safeName = index.name.replace(/[<>:"/\\|?*\x00-\x1f]/g, "_").trim();
+    outputFileName = `${safeName}.zip`;
+  } else {
+    const baseName = file.name.replace(/\.mrpack$/i, "");
+    outputFileName = `${baseName}.zip`;
+  }
 
   onProgress({
     status: "done",

@@ -18,6 +18,7 @@ export function Converter() {
   const isBusy =
     status === "parsing" || status === "downloading" || status === "packaging";
   const isDone = status === "done";
+  const showInputPanel = !isBusy && !isDone;
   const showOptions = !isDone && !isBusy;
   const showConvertBtn = selectedFile && status !== "done" && !isBusy;
 
@@ -57,7 +58,7 @@ export function Converter() {
               <InputModeSelector />
             </div>
 
-            {!isBusy && (
+            {showInputPanel && (
               <div className="pixel-card pixel-card-corners noise-overlay p-6">
                 {inputMode === "project" && <ProjectInput />}
                 {inputMode === "url" && <UrlInput />}
