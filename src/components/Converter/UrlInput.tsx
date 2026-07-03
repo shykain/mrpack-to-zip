@@ -26,9 +26,9 @@ export function UrlInput() {
     inputRef.current?.focus();
   }, []);
 
-  // Auto-download after user stops typing
+  // Auto-download after user stops typing (only in idle state, not after error)
   useEffect(() => {
-    if (selectedFile || isBusy) return;
+    if (selectedFile || isBusy || status === "error") return;
     if (timeoutRef.current) clearTimeout(timeoutRef.current);
 
     const trimmed = mrpackUrl.trim();
@@ -41,7 +41,7 @@ export function UrlInput() {
     return () => {
       if (timeoutRef.current) clearTimeout(timeoutRef.current);
     };
-  }, [mrpackUrl, selectedFile, isBusy, fetchFromUrl]);
+  }, [mrpackUrl, selectedFile, isBusy, status, fetchFromUrl]);
 
   const handleSubmit = useCallback((e: React.FormEvent) => {
     e.preventDefault();

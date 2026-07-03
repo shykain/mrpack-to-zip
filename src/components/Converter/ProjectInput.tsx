@@ -26,9 +26,9 @@ export function ProjectInput() {
     inputRef.current?.focus();
   }, []);
 
-  // Auto-fetch after user stops typing
+  // Auto-fetch after user stops typing (only in idle state, not after error)
   useEffect(() => {
-    if (selectedFile || isBusy) return;
+    if (selectedFile || isBusy || status === "error") return;
     if (timeoutRef.current) clearTimeout(timeoutRef.current);
 
     const trimmed = projectId.trim();
@@ -41,7 +41,7 @@ export function ProjectInput() {
     return () => {
       if (timeoutRef.current) clearTimeout(timeoutRef.current);
     };
-  }, [projectId, selectedFile, isBusy, fetchFromProject]);
+  }, [projectId, selectedFile, isBusy, status, fetchFromProject]);
 
   const handleSubmit = useCallback((e: React.FormEvent) => {
     e.preventDefault();
