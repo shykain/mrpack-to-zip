@@ -143,12 +143,36 @@ export const useConvertStore = create<ConvertState>((set, get) => ({
 
   fetchFromUrl: async () => {
     const { mrpackUrl } = get();
-    if (!mrpackUrl.trim()) {
+    const trimmed = mrpackUrl.trim();
+    if (!trimmed) {
       set({ error: "Please enter a .mrpack download URL." });
       return;
     }
 
-    await get().fetchFromUrlWithUrl(mrpackUrl.trim());
+    // If it's a Modrinth project page URL (not a direct .mrpack link),
+    // resolve it through the API to get the version's .mrpack download URL.
+    const isProjectPage = /modrinth\.com\/(?:project|modpack|mod|plugin|shader|resourcepack)\//i.test(
+      trimmed,
+    );
+    if (isProjectPage && !trimmed.includes(".mrpack")) {
+      set({ status: "parsing", error: undefined, progress: 0 });
+      try {
+        const { getMrpackUrlFromProjectId } = await import("@/lib/converter");
+        const directUrl = await getMrpackUrlFromProjectId(trimmed);
+        await get().fetchFromUrlWithUrl(directUrl);
+      } catch (err) {
+        set({
+          status: "error",
+          error:
+            err instanceof Error
+              ? err.message
+              : "Failed to resolve project URL.",
+        });
+      }
+      return;
+    }
+
+    await get().fetchFromUrlWithUrl(trimmed);
   },
 
   fetchFromUrlWithUrl: async (url: string) => {

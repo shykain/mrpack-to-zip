@@ -3,10 +3,10 @@ import { Globe, Loader2, Link } from "lucide-react";
 import { useConvertStore } from "@/lib/store";
 
 const steps = [
-  { text: "Go to a Modrinth project's Versions tab" },
-  { text: "Right-click the green download button for a specific version" },
-  { text: 'Select "Copy link address"' },
-  { text: "Paste the URL below — auto-download starts" },
+  { text: "Paste a Modrinth project page URL (e.g. modrinth.com/project/...)" },
+  { text: "Or paste a direct .mrpack download link from the Versions tab" },
+  { text: "Auto-download starts after you paste" },
+  { text: "Wait for the pack to be converted" },
 ];
 
 export function UrlInput() {
@@ -83,7 +83,7 @@ export function UrlInput() {
               value={mrpackUrl}
               onChange={(e) => setMrpackUrl(e.target.value)}
               onKeyDown={handleKeyDown}
-              placeholder="https://cdn.modrinth.com/..."
+              placeholder="https://modrinth.com/project/... or https://cdn.modrinth.com/..."
               className="w-full pl-12 pr-4 py-3 rounded-xl bg-ink-900/60 border border-grass-500/30 text-cream-50 placeholder:text-cream-200/40 focus:outline-none focus:border-grass-500/60 focus:ring-1 focus:ring-grass-500/40 transition-all font-mono text-sm"
               disabled={isBusy}
             />
@@ -112,7 +112,7 @@ export function UrlInput() {
       <div className="flex items-start gap-2 p-3 rounded-lg bg-ember-500/10 border border-ember-500/20">
         <Link className="w-4 h-4 text-ember-300 shrink-0 mt-0.5" />
         <p className="text-xs text-cream-200/60 leading-relaxed">
-          Make sure the URL ends with <code className="text-ember-300">.mrpack</code> for proper processing.
+          Both Modrinth project page URLs and direct <code className="text-ember-300">.mrpack</code> download links are supported.
         </p>
       </div>
     </div>
