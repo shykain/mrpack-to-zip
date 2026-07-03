@@ -1,4 +1,4 @@
-import { CheckCircle2, Package, Gamepad2, Cpu, FileText } from "lucide-react";
+import { CheckCircle2, Package, Gamepad2, Cpu, FileText, RefreshCw } from "lucide-react";
 import { useConvertStore } from "@/lib/store";
 
 export function PackInfoCard() {
@@ -6,6 +6,7 @@ export function PackInfoCard() {
   const selectedFile = useConvertStore((s) => s.selectedFile);
   const status = useConvertStore((s) => s.status);
   const modCount = useConvertStore((s) => s.modCount);
+  const reset = useConvertStore((s) => s.reset);
   const isBusy =
     status === "parsing" || status === "downloading" || status === "packaging";
 
@@ -13,14 +14,25 @@ export function PackInfoCard() {
 
   return (
     <div className="pixel-card pixel-card-corners noise-overlay p-5 animate-drop-bounce">
-      <div className="flex items-center gap-3 mb-4">
-        <div className="w-10 h-10 rounded-lg bg-grass-500/20 border border-grass-400/40 flex items-center justify-center">
-          <CheckCircle2 className="w-5 h-5 text-grass-300" />
+      <div className="flex items-center justify-between mb-4">
+        <div className="flex items-center gap-3">
+          <div className="w-10 h-10 rounded-lg bg-grass-500/20 border border-grass-400/40 flex items-center justify-center">
+            <CheckCircle2 className="w-5 h-5 text-grass-300" />
+          </div>
+          <div>
+            <h3 className="font-semibold text-cream-100">Pack Recognized</h3>
+            <p className="text-xs text-cream-200/50">Click Convert to start processing</p>
+          </div>
         </div>
-        <div>
-          <h3 className="font-semibold text-cream-100">Pack Recognized</h3>
-          <p className="text-xs text-cream-200/50">Click Convert to start processing</p>
-        </div>
+        <button
+          onClick={reset}
+          className="btn-ghost text-sm px-3 py-2"
+          title="Replace file"
+          aria-label="Replace file"
+        >
+          <RefreshCw className="w-4 h-4" />
+          <span className="hidden sm:inline">Replace</span>
+        </button>
       </div>
 
       <div className="grid grid-cols-2 gap-3">
