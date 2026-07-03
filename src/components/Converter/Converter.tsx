@@ -8,6 +8,7 @@ import { FileStructure } from "./FileStructure";
 import { InputModeSelector } from "./InputModeSelector";
 import { ProjectInput } from "./ProjectInput";
 import { UrlInput } from "./UrlInput";
+import { PackInfoCard } from "./PackInfoCard";
 
 export function Converter() {
   const selectedFile = useConvertStore((s) => s.selectedFile);
@@ -76,6 +77,8 @@ export function Converter() {
                 <OptionsPanel />
               </div>
             )}
+
+            <PackInfoCard />
 
             {showConvertBtn && (
               <div className="flex justify-center">
