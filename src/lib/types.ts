@@ -49,7 +49,7 @@ export interface ConvertProgress {
 export type ProgressCallback = (progress: ConvertProgress) => void;
 
 export const DEFAULT_OPTIONS: ConvertOptions = {
-  downloadModFiles: false,
+  downloadModFiles: true,
   normalizeFilenames: false,
   keepOriginalStructure: true,
   includeIndexFile: true,

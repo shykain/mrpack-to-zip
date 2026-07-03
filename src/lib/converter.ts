@@ -141,7 +141,7 @@ export async function convertToZip(
     });
 
     // Concurrent download with limited parallelism
-    const CONCURRENCY = 6;
+    const CONCURRENCY = 12;
     let index = 0;
 
     async function worker() {
