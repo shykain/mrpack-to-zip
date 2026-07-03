@@ -51,7 +51,7 @@ export function Converter() {
           </span>
         </div>
 
-        <div className={`grid gap-6 lg:gap-8 ${inputMode === "file" ? "grid-cols-1 lg:grid-cols-2" : "grid-cols-1 max-w-2xl mx-auto"}`}>
+        <div className={`grid gap-6 lg:gap-8 ${inputMode === "file" && selectedFile ? "grid-cols-1 lg:grid-cols-2" : "grid-cols-1 max-w-2xl mx-auto"}`}>
           <div className="space-y-6">
             <div className="pixel-card pixel-card-corners noise-overlay p-6">
               <InputModeSelector />
@@ -113,8 +113,8 @@ export function Converter() {
             )}
           </div>
 
-          {inputMode === "file" && (
-            <div className="lg:sticky lg:top-28 lg:self-start h-fit">
+          {inputMode === "file" && selectedFile && (
+            <div className="lg:sticky lg:top-28 lg:self-start h-fit animate-drop-bounce">
               <div className="h-[500px] lg:h-[80vh]">
                 <FileStructure />
               </div>
